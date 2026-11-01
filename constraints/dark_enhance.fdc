@@ -1,0 +1,47 @@
+# DARK v2 frozen mailboxes. Budgets are at most one destination clock period;
+# toggle synchronization plus capture_wait supplies additional settling cycles.
+# Pin/cell-specific exceptions must be confirmed in *_exception.snr/rtr, since
+# pix_clk / pcie_pclk_div2 share a constraint group only to allow explicit
+# mailbox bounds. They remain physically asynchronous; no clock relationship
+# is assumed by this protocol.
+# Do not accept an empty match or a maximum-delay rule masked by false_path.
+
+set_clock_groups -name pix_pcie_control_group -asynchronous -group [get_clocks {pix_clk pcie_pclk_div2 pixclk_in ddrphy_sysclk}]
+
+# These clocks are physically unrelated. Pango's through-cell/net exceptions
+# do not survive synthesis reliably in this project. Bound cross-domain DATA
+# without an assumed phase relationship, instead of restoring whole-domain
+# false paths. Legacy CDC protocols are unchanged and are not certified here.
+# 6.727ns is no greater than either clock period and bounds legacy Gray buses.
+set_max_delay -from [get_clocks {pcie_pclk_div2}] -to [get_clocks {pix_clk}] -datapath_only 6.727
+set_max_delay -from [get_clocks {pix_clk}] -to [get_clocks {pcie_pclk_div2}] -datapath_only 6.727
+
+# Native HDMI / road-reference FIFO Gray buses and frozen mailboxes.
+# Same-group clocks remain physically unrelated; these are propagation
+# budgets, not synchronous phase assumptions. Keep stage1 -> stage2 timed.
+# Verify effective (not ignored/masked) exceptions after PDS mapping/routing.
+set_max_delay -from [get_clocks {pixclk_in}] -to [get_clocks {ddrphy_sysclk}] -datapath_only 6.727
+set_max_delay -from [get_clocks {ddrphy_sysclk}] -to [get_clocks {pixclk_in}] -datapath_only 6.727
+set_max_delay -from [get_clocks {pixclk_in}] -to [get_clocks {pcie_pclk_div2}] -datapath_only 6.727
+set_max_delay -from [get_clocks {pcie_pclk_div2}] -to [get_clocks {pixclk_in}] -datapath_only 6.727
+set_max_delay -from [get_clocks {pixclk_in}] -to [get_clocks {pix_clk}] -datapath_only 6.727
+set_max_delay -from [get_clocks {pix_clk}] -to [get_clocks {pixclk_in}] -datapath_only 6.727
+set_max_delay -from [get_clocks {ddrphy_sysclk}] -to [get_clocks {pcie_pclk_div2}] -datapath_only 8.000
+set_max_delay -from [get_clocks {pcie_pclk_div2}] -to [get_clocks {ddrphy_sysclk}] -datapath_only 8.000
+set_max_delay -from [get_clocks {ddrphy_sysclk}] -to [get_clocks {pix_clk}] -datapath_only 6.727
+set_max_delay -from [get_clocks {pix_clk}] -to [get_clocks {ddrphy_sysclk}] -datapath_only 6.727
+
+set_max_delay -from [get_cells -hierarchical {u_feature_transport*dark*ctrl*command_type_bus* u_feature_transport*dark*ctrl*command_threshold_bus* u_feature_transport*dark*ctrl*command_strength_bus* u_feature_transport*dark*ctrl*command_request_bus*}] -to [get_cells -hierarchical {u_feature_transport*dark*ctrl*command_type_pix* u_feature_transport*dark*ctrl*command_threshold_pix* u_feature_transport*dark*ctrl*command_strength_pix* u_feature_transport*dark*ctrl*command_request_pix*}] -datapath_only 6.727
+set_max_delay -from [get_cells -hierarchical -regexp {u_feature_transport/dark/ctrl/active_(enable|threshold|strength|generation|request)(\[[0-9:]+\])?$}] -to [get_cells -hierarchical {u_feature_transport*dark*ctrl*active_enable_sync_bus* u_feature_transport*dark*ctrl*active_threshold_meta_bus* u_feature_transport*dark*ctrl*active_strength_meta_bus* u_feature_transport*dark*ctrl*active_generation_meta_bus* u_feature_transport*dark*ctrl*active_request_meta_bus*}] -datapath_only 8.000
+set_max_delay -from [get_cells -hierarchical {u_feature_transport*dark*snapshots*frozen_pix*}] -to [get_cells -hierarchical {u_feature_transport*dark*snapshots*snapshot_bus*}] -datapath_only 8.000
+
+# Only asynchronous toggle ingress; second and later stages remain timed.
+set_false_path -from [get_cells -hierarchical {u_feature_transport*dark*ctrl*command_toggle_bus}] -to [get_cells -hierarchical {u_feature_transport*dark*ctrl*command_toggle_meta_pix}]
+set_false_path -from [get_cells -hierarchical {u_feature_transport*dark*ctrl*status_toggle_pix}] -to [get_cells -hierarchical {u_feature_transport*dark*ctrl*status_toggle_meta_bus}]
+set_false_path -from [get_cells -hierarchical {u_feature_transport*dark*snapshots*toggle_pix}] -to [get_cells -hierarchical {u_feature_transport*dark*snapshots*toggle_meta_bus}]
+set_false_path -from [get_cells -hierarchical {u_feature_transport*dark*snapshots*ack_bus}] -to [get_cells -hierarchical {u_feature_transport*dark*snapshots*ack_meta_pix}]
+
+# Async reset ingress only. The local reset shift/release stages stay timed;
+# these directional rules cannot cut same-clock paths.
+set_false_path -from [get_clocks {pix_clk}] -to [get_cells -hierarchical {u_feature_transport*bus_reset* u_video_frame_store/tx_reset*}]
+set_false_path -from [get_clocks {pcie_pclk_div2}] -to [get_cells -hierarchical {dark_reset_release* u_video_frame_store/pix_reset* u_feature_transport*pix_reset* u_status_cdc/src_reset_pipe*}]

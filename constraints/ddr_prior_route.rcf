@@ -1,0 +1,8 @@
+# DDR PHY 内部时钟门控网络优先布线约束（RCF）
+# 来源：PDS 2023.2-SP3 安装目录 ips2l_hmic_s/createFiles.tcl:447-455 生成的官方 RCF 内容，
+#       以及 资料库/1.官方文件/2_Demo/2_9_ddr3_test 官方例程的 ddr3_test.rcf。
+# 差异：仅把实例前缀由官方例程的 I_ips_ddr_top 改为本工程的 u_ddr3_test_h。
+# 依据：UG042003 §2.8.5 要求自建工程加载 IP 生成的优先布线 RCF。
+# 注意：Pango 网表网名对总线位带空格，形如 "ddrphy_ioclk_gate [0]"，不能写成 [0] 紧贴。
+def_route -prior_net {u_ddr3_test_h/u_ddrphy_top/ddrphy_ioclk_gate [0]}
+def_route -prior_net {u_ddr3_test_h/u_ddrphy_top/ddrphy_ioclk_gate [1]}

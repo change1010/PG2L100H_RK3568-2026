@@ -1,0 +1,26 @@
+create_clock -name {pcie_pclk} [get_pins {u_pcie_ram_endpoint.u_ips2l_pcie_wrap.U_IPS2L_PCIE_TOP.U_IPS2L_HSSTLP_PCIE_SOFT_PHY.pclk}] -period {4.000} -waveform {0.000 2.000}
+create_clock -name {pcie_pclk_div2} [get_pins {u_pcie_ram_endpoint.u_ips2l_pcie_wrap.U_IPS2L_PCIE_TOP.U_IPS2L_HSSTLP_PCIE_SOFT_PHY.pclk_div2}] -period {8.000} -waveform {0.000 4.000}
+create_clock -name {pcie_ref_clk} [get_pins {u_pcie_ram_endpoint.u_ips2l_pcie_wrap.U_IPS2L_PCIE_TOP.U_IPS2L_HSSTLP_PCIE_SOFT_PHY/P_REFCK2CORE_0}] -period {10.000} -waveform {0.000 5.000}
+
+set_clock_groups -name pcie_pclk_group -asynchronous -group [get_clocks {pcie_pclk}]
+# pix/PCIe div2 group is declared in dark_enhance.fdc, after both clocks exist.
+set_clock_groups -name pcie_ref_clk_group -asynchronous -group [get_clocks {pcie_ref_clk}]
+
+define_attribute {i:u_pcie_ram_endpoint.u_ips2l_pcie_wrap.U_IPS2L_PCIE_TOP.U_IPS2L_HSSTLP_PCIE_SOFT_PHY.x4.GTP_HSST_4LANE_TOP.U_GTP_HSSTLP_WRAPPER.PLL0_ENABLE.U_GTP_HSSTLP_PLL0} {PAP_LOC} {HSSTLP_364_918:U0_HSSTLP_PLL}
+define_attribute {i:u_pcie_ram_endpoint.u_ips2l_pcie_wrap.U_IPS2L_PCIE_TOP.U_IPS2L_HSSTLP_PCIE_SOFT_PHY.x4.GTP_HSST_4LANE_TOP.U_GTP_HSSTLP_WRAPPER.CHANNEL0_ENABLE.U_GTP_HSSTLP_LANE0} {PAP_LOC} {HSSTLP_364_918:U0_HSSTLP_LANE}
+define_attribute {i:u_pcie_ram_endpoint.u_ips2l_pcie_wrap.U_IPS2L_PCIE_TOP.U_IPS2L_HSSTLP_PCIE_SOFT_PHY.x4.GTP_HSST_4LANE_TOP.U_GTP_HSSTLP_WRAPPER.CHANNEL1_ENABLE.U_GTP_HSSTLP_LANE1} {PAP_LOC} {HSSTLP_364_918:U1_HSSTLP_LANE}
+define_attribute {i:u_pcie_ram_endpoint.u_ips2l_pcie_wrap.U_IPS2L_PCIE_TOP.U_IPS2L_HSSTLP_PCIE_SOFT_PHY.x4.GTP_HSST_4LANE_TOP.U_GTP_HSSTLP_WRAPPER.CHANNEL2_ENABLE.U_GTP_HSSTLP_LANE2} {PAP_LOC} {HSSTLP_364_918:U2_HSSTLP_LANE}
+define_attribute {i:u_pcie_ram_endpoint.u_ips2l_pcie_wrap.U_IPS2L_PCIE_TOP.U_IPS2L_HSSTLP_PCIE_SOFT_PHY.x4.GTP_HSST_4LANE_TOP.U_GTP_HSSTLP_WRAPPER.CHANNEL3_ENABLE.U_GTP_HSSTLP_LANE3} {PAP_LOC} {HSSTLP_364_918:U3_HSSTLP_LANE}
+
+define_attribute {p:pcie_ref_clk_p} {PAP_IO_DIRECTION} {Input}
+define_attribute {p:pcie_ref_clk_p} {PAP_IO_LOC} {F11}
+define_attribute {p:pcie_ref_clk_p} {PAP_IO_VCCIO} {3.3}
+define_attribute {p:pcie_ref_clk_p} {PAP_IO_STANDARD} {LVCMOS33}
+define_attribute {p:pcie_ref_clk_n} {PAP_IO_DIRECTION} {Input}
+define_attribute {p:pcie_ref_clk_n} {PAP_IO_LOC} {E11}
+define_attribute {p:pcie_ref_clk_n} {PAP_IO_VCCIO} {3.3}
+define_attribute {p:pcie_ref_clk_n} {PAP_IO_STANDARD} {LVCMOS33}
+define_attribute {p:pcie_perst_n} {PAP_IO_DIRECTION} {Input}
+define_attribute {p:pcie_perst_n} {PAP_IO_LOC} {G24}
+define_attribute {p:pcie_perst_n} {PAP_IO_VCCIO} {3.3}
+define_attribute {p:pcie_perst_n} {PAP_IO_STANDARD} {LVCMOS33}
