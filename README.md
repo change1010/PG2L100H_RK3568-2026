@@ -4,6 +4,8 @@
 
 本仓库提交 FPGA 主工程源码。直接使用 Pango Design Suite 打开根目录的 `video_dma_hdmi.pds` 即可开始编译，工程所需 RTL、IP 配置及实现源码、引脚和时序约束均随仓库提供。
 
+当前版本已完成时序修复，并在固定 seed 1 下完成综合、布局布线、最终多角时序分析和位流生成。已约束的内部路径各项检查通过；外部接口完整时序预算、时序例外及 CDC/RDC 签核仍待完成。详见 [当前实现与时序报告](TIMING_REPORT.md)。
+
 ## 主要功能
 
 ### 多源视频采集与显示
@@ -75,6 +77,10 @@ ARM ── PCIe 寄存器指令 ── 采集、传输及图像参数控制
 PG2L100H_RK3568-2026/
 ├─ video_dma_hdmi.pds    PDS 工程入口，包含器件、顶层、源文件和流程配置
 ├─ README.md             项目功能与编译说明
+├─ TIMING_REPORT.md      当前实现、时序结果与验证范围
+├─ impl.tcl              固定 seed 的完整实现入口
+├─ scripts/              干净全流程构建脚本
+├─ reports/              当前时序摘要与发布输入 SHA-256 清单
 ├─ rtl/
 │  ├─ top/               顶层连接、视频布局及跨模块接口
 │  ├─ control/           外设初始化、按键、寄存器控制及状态同步
@@ -89,7 +95,7 @@ PG2L100H_RK3568-2026/
 └─ constraints/          引脚、时钟、时序、布局与布线约束
 ```
 
-仓库仅保留主工程编译需要的文件及本说明，不包含仿真目录、测试脚本、历史方案、逐文件分析文档、编译数据库、日志或位流。部分名称含 `road_plane` 的模块同时被小 RGB 图通道复用，属于当前编译依赖。
+仓库保留主工程编译输入、构建入口及当前报告，不包含仿真目录、历史方案、编译数据库、完整原始日志或位流。部分名称含 `road_plane` 的模块同时被小 RGB 图通道复用，属于当前编译依赖。
 
 `ip/` 中的 `.idf`、Verilog、加密 `.vp` 和 IP 附属约束是编译输入，应与主工程一起保留。IP 的仿真模型、示例工程、实例化模板及旧综合输出不属于本次提交。
 
@@ -103,18 +109,34 @@ PG2L100H_RK3568-2026/
 | 封装、速度等级 | FBG676、-6 |
 | 顶层模块 | `video_dma_hdmi_top` |
 | 工程入口 | `video_dma_hdmi.pds` |
+| 固定 seed / 布线线程 | 1 / 4 |
+| 布线模式 | normal；保留多角分析、hold 修复与 recovery 优化 |
 
 1. 安装上述版本的 PDS，并配置可用的器件及 IP 工具授权。
 2. 将仓库完整克隆到本地可写目录，在 PDS 中打开根目录的 `video_dma_hdmi.pds`。
 3. 确认顶层和器件与上表一致。源码与 IP 已登记，无需手工添加文件、安装 Python 依赖或运行预生成脚本。
-4. 从 Compile 开始执行综合、器件映射、布局布线及时序分析，最后生成位流。
-5. 在工具生成的 `generate_bitstream/` 中获取位流，按目标开发板下载方式烧录。
+4. 在 PDS Tcl 控制台进入仓库根目录，执行 `source impl.tcl`，运行综合、器件映射、布局布线、最终时序分析及位流生成。脚本在 PNR 出错时终止。
+5. 在工具工作目录的 `generate_bitstream/` 中获取位流，并结合对应版本的约束覆盖与板级验证结果决定下载验收。
+
+需要干净构建及完整耗时记录时，在 PowerShell 中运行以下命令。`-PdsShell` 使用本机工具位置，`-OutputDirectory` 必须为尚不存在的目录：
+
+```powershell
+.\scripts\build_fast_single_seed.ps1 `
+    -PdsShell "<PDS安装目录>\bin\pds_shell.exe" `
+    -OutputDirectory "$env:TEMP\video_dma_hdmi_seed1_$(Get-Date -Format yyyyMMdd_HHmmss)" `
+    -RoutingThreads 4 -RouteMode normal `
+    -OptimizeRecovery -DisableControlChains
+```
+
+脚本冻结本次输入、排除旧 IP 构建数据库，并保存 `inputs.json`、实际执行 Tcl、`build.log` 和 `status.json`；不启用增量构建。请显式保留上述选项，脚本的通用默认布线模式并非本次验收配置。
 
 所有工程编译输入使用仓库内相对路径。`compile/`、`synthesize/`、`device_map/`、`place_route/`、`report_timing/`、`generate_bitstream/` 等目录由 PDS 编译时生成，无需从原工程复制。
 
 ## 使用范围与验证说明
 
-2026 年 11 月 1 日，提交源码已在独立目录使用 PDS 2023.2-SP3 完成 Compile 阶段验证，并通过主工程源文件登记、模块接口及 IP 附属文件依赖检查。此次整理未修改 RTL 或 IP 源码，未重新执行综合、布局布线及实板烧录。
+2026 年 11 月 2 日，当前实现已使用 PDS 2023.2-SP3 完成非增量全流程构建。Slow/Fast setup 最差余量分别为 +0.494/+1.963 ns，hold 为 +0.137/+0.101 ns；两角 setup、hold、recovery、removal、最小脉宽检查的 TNS 与失败终点数均为 0。启动至最终位流写出为 1264.002927 秒，即 21 分 04.003 秒，仅代表该次测量。
+
+最终报告仍提示 89 个未约束输入端口、126 个未约束输出端口，未时钟化引脚为 0；这些是端口计数，不是路径数量。当前结论是已约束内部 STA 通过，不能据此宣称完整板级时序签核完成。本位流尚未完成实板下载及 1080p60 整链持续吞吐、无溢出和无丢帧验收。
 
 本仓库用于 FPGA 源码提交。ARM 驱动、RK3568 应用、NPU 模型及网络视频发送程序属于系统配套软件，不是 PDS 编译依赖，也不在本仓库内。仅编译和烧录 FPGA 不会自动启动 ARM 端识别及显示程序。
 

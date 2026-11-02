@@ -16,6 +16,7 @@ module eth_token_fifo #(
     localparam DEPTH = (1 << ADDR_BITS);
 
     reg [WIDTH-1:0] mem [0:DEPTH-1];
+    reg [WIDTH-1:0] head_data;
 
     reg [ADDR_BITS:0] wr_bin, rd_bin;
     reg [ADDR_BITS:0] wr_gray /* synthesis syn_preserve=1 */;
@@ -38,7 +39,18 @@ module eth_token_fifo #(
 
     assign wr_ready = ~full;
     assign rd_valid = ~empty;
-    assign rd_data  = mem[rd_bin[ADDR_BITS-1:0]];
+    assign rd_data  = head_data;
+
+    // Prefetch while empty and on each pop; synchronized validity hides the RAM read.
+    always @(posedge rd_clk) begin
+        if (rd_rst_n && (!rd_valid || rd_ready))
+            head_data <= mem[rd_bin_nxt[ADDR_BITS-1:0]];
+    end
+
+    always @(posedge wr_clk) begin
+        if (wr_rst_n && wr_valid && wr_ready)
+            mem[wr_bin[ADDR_BITS-1:0]] <= wr_data;
+    end
 
     always @(posedge wr_clk or negedge wr_rst_n) begin
         if (!wr_rst_n) begin
@@ -47,7 +59,6 @@ module eth_token_fifo #(
             full    <= 1'b0;
         end else begin
             if (wr_valid && wr_ready) begin
-                mem[wr_bin[ADDR_BITS-1:0]] <= wr_data;
                 wr_bin  <= wr_bin_nxt;
                 wr_gray <= wr_gray_nxt;
             end

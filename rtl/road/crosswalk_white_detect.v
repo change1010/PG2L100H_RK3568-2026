@@ -248,10 +248,14 @@ module crosswalk_white_detect #(
     wire band_x_match=scan_mode || (best_x0<=gx1 && best_x1>=gx0);
     wire join_group=group_bands!=0 && band_y_match && band_x_match &&
         best_pitch>=gpitch-(gpitch>>2) && best_pitch<=gpitch+(gpitch>>2);
-    wire [5:0] next_bands=join_group ? group_bands+6'd1 : 6'd1;
-    wire [7:0] group_next_count=(join_group && group_count>best_count) ? group_count : best_count;
-    wire [10:0] nx0=(join_group && gx0<best_x0) ? gx0 : best_x0;
-    wire [10:0] nx1=(join_group && gx1>best_x1) ? gx1 : best_x1;
+    wire [5:0] joined_bands=group_bands+6'd1;
+    wire [7:0] joined_count=group_count>best_count ? group_count : best_count;
+    wire [10:0] joined_x0=gx0<best_x0 ? gx0 : best_x0;
+    wire [10:0] joined_x1=gx1>best_x1 ? gx1 : best_x1;
+    wire [5:0] next_bands=join_group ? joined_bands : 6'd1;
+    wire [7:0] group_next_count=join_group ? joined_count : best_count;
+    wire [10:0] nx0=join_group ? joined_x0 : best_x0;
+    wire [10:0] nx1=join_group ? joined_x1 : best_x1;
     wire [10:0] ny0=join_group ? gy0 : scan_y;
     wire [10:0] ny1=scan_y+BAND_H-1;
     // 低阈值分支跟随当前行带的尺度变化；向画面底部节距逐渐增大。
@@ -264,11 +268,18 @@ module crosswalk_white_detect #(
     wire extend_band=scan_mode && best_count>=2 && group_bands>=MIN_BANDS &&
         join_group && best_x0<=gx1 && best_x1>=gx0;
     wire accept_band=finish_band && scan_mean && (strong_band || extend_band);
-    wire accept_frame=accept_band && next_bands>=MIN_BANDS &&
-        (scan_mode==0 || nx1-nx0>=320) &&
+    // Compare both candidates before join_group, keeping the original arithmetic widths.
+    wire joined_frame_ok=joined_bands>=MIN_BANDS &&
+        (scan_mode==0 || joined_x1-joined_x0>=320) &&
         (!selected_valid || scan_mode<selected_mode || (scan_mode==selected_mode &&
-         (next_bands>selected_frame[60:55] ||
-          (next_bands==selected_frame[60:55] && group_next_count>selected_frame[68:61]))));
+         (joined_bands>selected_frame[60:55] ||
+          (joined_bands==selected_frame[60:55] && joined_count>selected_frame[68:61]))));
+    wire fresh_frame_ok=6'd1>=MIN_BANDS &&
+        (scan_mode==0 || best_x1-best_x0>=320) &&
+        (!selected_valid || scan_mode<selected_mode || (scan_mode==selected_mode &&
+         (6'd1>selected_frame[60:55] ||
+          (6'd1==selected_frame[60:55] && best_count>selected_frame[68:61]))));
+    wire accept_frame=accept_band && (join_group ? joined_frame_ok : fresh_frame_ok);
     // 缓存当前帧中优先级最高分支的最佳框；帧边界原子发布，不增加结果延迟。
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n)begin

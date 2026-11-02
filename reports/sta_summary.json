@@ -1,0 +1,2158 @@
+{
+  "measurement_date": "2026-11-02",
+  "tool": "PDS 2023.2-SP3 / Fabric Compiler build 154097",
+  "device": "Logos2 PG2L100H FBG676 -6",
+  "top": "video_dma_hdmi_top",
+  "seed": 1,
+  "routing_threads": 4,
+  "route_mode": "normal",
+  "incremental_build": false,
+  "reported_internal_timing_pass": true,
+  "complete_board_timing_signoff": false,
+  "raw_final_timing_report_sha256": "6527403a7aeae3c5023727b4b9793e6f556b600a6456db89fc07c95b377404e3",
+  "minimum_slack_ns": {
+    "Setup / Slow": 0.494,
+    "Hold / Slow": 0.137,
+    "Recovery / Slow": 0.807,
+    "Removal / Slow": 0.333,
+    "Minimum Pulse Width / Slow": 0.035,
+    "Setup / Fast": 1.963,
+    "Hold / Fast": 0.101,
+    "Recovery / Fast": 2.308,
+    "Removal / Fast": 0.227,
+    "Minimum Pulse Width / Fast": 0.035
+  },
+  "timing_tables": {
+    "Setup / Slow": [
+      {
+        "launch": "pcie_pclk",
+        "capture": "pcie_pclk",
+        "slack_ns": 0.822,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 981
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 0.594,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 28744
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 4.744,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 483
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 5.555,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 75
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 5.006,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 1261
+      },
+      {
+        "launch": "pcie_ref_clk",
+        "capture": "pcie_ref_clk",
+        "slack_ns": 5.639,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 1175
+      },
+      {
+        "launch": "rgmii_rxc",
+        "capture": "rgmii_rxc",
+        "slack_ns": 0.514,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 7664
+      },
+      {
+        "launch": "sys_clk",
+        "capture": "sys_clk",
+        "slack_ns": 34.585,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 100
+      },
+      {
+        "launch": "cmos1_pclk",
+        "capture": "cmos1_pclk",
+        "slack_ns": 7.653,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 295
+      },
+      {
+        "launch": "cmos2_pclk",
+        "capture": "cmos2_pclk",
+        "slack_ns": 7.196,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 295
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pixclk_in",
+        "slack_ns": 0.494,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 47403
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pixclk_in",
+        "slack_ns": 5.754,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 10
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pixclk_in",
+        "slack_ns": 5.778,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 11
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pix_clk",
+        "slack_ns": 1.147,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 234
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pix_clk",
+        "slack_ns": 0.639,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 12071
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pix_clk",
+        "slack_ns": 4.739,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 59
+      },
+      {
+        "launch": "cfg_clk",
+        "capture": "cfg_clk",
+        "slack_ns": 94.916,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 806
+      },
+      {
+        "launch": "clk_25M",
+        "capture": "clk_25M",
+        "slack_ns": 36.006,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 290
+      },
+      {
+        "launch": "rst_clk",
+        "capture": "rst_clk",
+        "slack_ns": 4.924,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 417
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 0.88,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 33593
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 1.108,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 1099
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 6.111,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 25
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 5.618,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 10
+      }
+    ],
+    "Hold / Slow": [
+      {
+        "launch": "pcie_pclk",
+        "capture": "pcie_pclk",
+        "slack_ns": 0.205,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 981
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 0.138,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 28744
+      },
+      {
+        "launch": "pcie_ref_clk",
+        "capture": "pcie_ref_clk",
+        "slack_ns": 0.222,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 1175
+      },
+      {
+        "launch": "rgmii_rxc",
+        "capture": "rgmii_rxc",
+        "slack_ns": 0.172,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 7664
+      },
+      {
+        "launch": "sys_clk",
+        "capture": "sys_clk",
+        "slack_ns": 0.288,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 100
+      },
+      {
+        "launch": "cmos1_pclk",
+        "capture": "cmos1_pclk",
+        "slack_ns": 0.185,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 295
+      },
+      {
+        "launch": "cmos2_pclk",
+        "capture": "cmos2_pclk",
+        "slack_ns": 0.173,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 295
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pixclk_in",
+        "slack_ns": 0.15,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 47403
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pix_clk",
+        "slack_ns": 0.148,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 12071
+      },
+      {
+        "launch": "cfg_clk",
+        "capture": "cfg_clk",
+        "slack_ns": 0.185,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 806
+      },
+      {
+        "launch": "clk_25M",
+        "capture": "clk_25M",
+        "slack_ns": 0.184,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 290
+      },
+      {
+        "launch": "rst_clk",
+        "capture": "rst_clk",
+        "slack_ns": 0.257,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 417
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 0.137,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 33593
+      }
+    ],
+    "Recovery / Slow": [
+      {
+        "launch": "pcie_pclk",
+        "capture": "pcie_pclk",
+        "slack_ns": 1.258,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 101
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 3.26,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 372
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 0.807,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 6468
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 3.223,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 292
+      },
+      {
+        "launch": "pcie_ref_clk",
+        "capture": "pcie_ref_clk",
+        "slack_ns": 4.967,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 221
+      },
+      {
+        "launch": "rgmii_rxc",
+        "capture": "rgmii_rxc",
+        "slack_ns": 3.373,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 479
+      },
+      {
+        "launch": "sys_clk",
+        "capture": "sys_clk",
+        "slack_ns": 35.039,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 20
+      },
+      {
+        "launch": "cmos1_pclk",
+        "capture": "cmos1_pclk",
+        "slack_ns": 8.562,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 53
+      },
+      {
+        "launch": "cmos2_pclk",
+        "capture": "cmos2_pclk",
+        "slack_ns": 8.537,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 53
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pixclk_in",
+        "slack_ns": 0.922,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 10803
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pixclk_in",
+        "slack_ns": 1.651,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 4
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pixclk_in",
+        "slack_ns": 2.961,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 3
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pixclk_in",
+        "slack_ns": 1.691,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 2
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pix_clk",
+        "slack_ns": 2.598,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 109
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pix_clk",
+        "slack_ns": 1.853,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 3570
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pix_clk",
+        "slack_ns": 2.638,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 2
+      },
+      {
+        "launch": "cfg_clk",
+        "capture": "cfg_clk",
+        "slack_ns": 97.286,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 8
+      },
+      {
+        "launch": "clk_25M",
+        "capture": "clk_25M",
+        "slack_ns": 38.11,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 54
+      },
+      {
+        "launch": "rst_clk",
+        "capture": "rst_clk",
+        "slack_ns": 4.784,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 99
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 3.049,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 5593
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 3.352,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 4
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 3.349,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 6
+      }
+    ],
+    "Removal / Slow": [
+      {
+        "launch": "pcie_pclk",
+        "capture": "pcie_pclk",
+        "slack_ns": 0.504,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 101
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 0.333,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 6468
+      },
+      {
+        "launch": "pcie_ref_clk",
+        "capture": "pcie_ref_clk",
+        "slack_ns": 0.407,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 221
+      },
+      {
+        "launch": "rgmii_rxc",
+        "capture": "rgmii_rxc",
+        "slack_ns": 0.832,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 479
+      },
+      {
+        "launch": "sys_clk",
+        "capture": "sys_clk",
+        "slack_ns": 0.492,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 20
+      },
+      {
+        "launch": "cmos1_pclk",
+        "capture": "cmos1_pclk",
+        "slack_ns": 0.832,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 53
+      },
+      {
+        "launch": "cmos2_pclk",
+        "capture": "cmos2_pclk",
+        "slack_ns": 0.798,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 53
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pixclk_in",
+        "slack_ns": 0.353,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 10803
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pix_clk",
+        "slack_ns": 0.342,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 3570
+      },
+      {
+        "launch": "cfg_clk",
+        "capture": "cfg_clk",
+        "slack_ns": 0.827,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 8
+      },
+      {
+        "launch": "clk_25M",
+        "capture": "clk_25M",
+        "slack_ns": 0.438,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 54
+      },
+      {
+        "launch": "rst_clk",
+        "capture": "rst_clk",
+        "slack_ns": 0.352,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 99
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 0.349,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 5593
+      }
+    ],
+    "Minimum Pulse Width / Slow": [
+      {
+        "launch": "pcie_pclk",
+        "capture": "pcie_pclk",
+        "slack_ns": 1.04,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 103
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 3.04,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 6709
+      },
+      {
+        "launch": "pcie_ref_clk",
+        "capture": "pcie_ref_clk",
+        "slack_ns": 4.8,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 229
+      },
+      {
+        "launch": "rgmii_rxc",
+        "capture": "rgmii_rxc",
+        "slack_ns": 3.04,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 1641
+      },
+      {
+        "launch": "sys_clk",
+        "capture": "sys_clk",
+        "slack_ns": 18.318,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 21
+      },
+      {
+        "launch": "cmos1_pclk",
+        "capture": "cmos1_pclk",
+        "slack_ns": 4.992,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 100
+      },
+      {
+        "launch": "cmos2_pclk",
+        "capture": "cmos2_pclk",
+        "slack_ns": 4.992,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 100
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pixclk_in",
+        "slack_ns": 2.022,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 13180
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pix_clk",
+        "slack_ns": 2.022,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 3773
+      },
+      {
+        "launch": "cfg_clk",
+        "capture": "cfg_clk",
+        "slack_ns": 49.062,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 148
+      },
+      {
+        "launch": "clk_25M",
+        "capture": "clk_25M",
+        "slack_ns": 19.241,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 56
+      },
+      {
+        "launch": "rst_clk",
+        "capture": "rst_clk",
+        "slack_ns": 3.8,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 100
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 3.04,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 7040
+      },
+      {
+        "launch": "phy_dq_clk_0",
+        "capture": "phy_dq_clk_0",
+        "slack_ns": 0.035,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 35
+      },
+      {
+        "launch": "phy_dq_sysclk_0",
+        "capture": "phy_dq_sysclk_0",
+        "slack_ns": 1.85,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 35
+      },
+      {
+        "launch": "phy_dq_clk_1",
+        "capture": "phy_dq_clk_1",
+        "slack_ns": 0.035,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 84
+      },
+      {
+        "launch": "phy_dq_sysclk_1",
+        "capture": "phy_dq_sysclk_1",
+        "slack_ns": 2.4,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 84
+      }
+    ],
+    "Setup / Fast": [
+      {
+        "launch": "pcie_pclk",
+        "capture": "pcie_pclk",
+        "slack_ns": 1.963,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 981
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 3.384,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 28744
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 5.45,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 483
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 6.022,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 75
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 6.105,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 1261
+      },
+      {
+        "launch": "pcie_ref_clk",
+        "capture": "pcie_ref_clk",
+        "slack_ns": 7.357,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 1175
+      },
+      {
+        "launch": "rgmii_rxc",
+        "capture": "rgmii_rxc",
+        "slack_ns": 3.289,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 7664
+      },
+      {
+        "launch": "sys_clk",
+        "capture": "sys_clk",
+        "slack_ns": 35.605,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 100
+      },
+      {
+        "launch": "cmos1_pclk",
+        "capture": "cmos1_pclk",
+        "slack_ns": 9.26,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 295
+      },
+      {
+        "launch": "cmos2_pclk",
+        "capture": "cmos2_pclk",
+        "slack_ns": 9.021,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 295
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pixclk_in",
+        "slack_ns": 2.609,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 47403
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pixclk_in",
+        "slack_ns": 6.151,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 10
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pixclk_in",
+        "slack_ns": 6.187,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 11
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pix_clk",
+        "slack_ns": 3.257,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 234
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pix_clk",
+        "slack_ns": 2.903,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 12071
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pix_clk",
+        "slack_ns": 5.498,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 59
+      },
+      {
+        "launch": "cfg_clk",
+        "capture": "cfg_clk",
+        "slack_ns": 96.998,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 806
+      },
+      {
+        "launch": "clk_25M",
+        "capture": "clk_25M",
+        "slack_ns": 37.704,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 290
+      },
+      {
+        "launch": "rst_clk",
+        "capture": "rst_clk",
+        "slack_ns": 6.049,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 417
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 3.539,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 33593
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 3.301,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 1099
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 6.791,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 25
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 6.079,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 10
+      }
+    ],
+    "Hold / Fast": [
+      {
+        "launch": "pcie_pclk",
+        "capture": "pcie_pclk",
+        "slack_ns": 0.144,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 981
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 0.101,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 28744
+      },
+      {
+        "launch": "pcie_ref_clk",
+        "capture": "pcie_ref_clk",
+        "slack_ns": 0.164,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 1175
+      },
+      {
+        "launch": "rgmii_rxc",
+        "capture": "rgmii_rxc",
+        "slack_ns": 0.122,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 7664
+      },
+      {
+        "launch": "sys_clk",
+        "capture": "sys_clk",
+        "slack_ns": 0.186,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 100
+      },
+      {
+        "launch": "cmos1_pclk",
+        "capture": "cmos1_pclk",
+        "slack_ns": 0.131,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 295
+      },
+      {
+        "launch": "cmos2_pclk",
+        "capture": "cmos2_pclk",
+        "slack_ns": 0.134,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 295
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pixclk_in",
+        "slack_ns": 0.101,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 47403
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pix_clk",
+        "slack_ns": 0.101,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 12071
+      },
+      {
+        "launch": "cfg_clk",
+        "capture": "cfg_clk",
+        "slack_ns": 0.131,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 806
+      },
+      {
+        "launch": "clk_25M",
+        "capture": "clk_25M",
+        "slack_ns": 0.127,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 290
+      },
+      {
+        "launch": "rst_clk",
+        "capture": "rst_clk",
+        "slack_ns": 0.167,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 417
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 0.101,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 33593
+      }
+    ],
+    "Recovery / Fast": [
+      {
+        "launch": "pcie_pclk",
+        "capture": "pcie_pclk",
+        "slack_ns": 2.308,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 101
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 4.593,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 372
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 3.441,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 6468
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 5.031,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 292
+      },
+      {
+        "launch": "pcie_ref_clk",
+        "capture": "pcie_ref_clk",
+        "slack_ns": 6.821,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 221
+      },
+      {
+        "launch": "rgmii_rxc",
+        "capture": "rgmii_rxc",
+        "slack_ns": 5.074,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 479
+      },
+      {
+        "launch": "sys_clk",
+        "capture": "sys_clk",
+        "slack_ns": 35.848,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 20
+      },
+      {
+        "launch": "cmos1_pclk",
+        "capture": "cmos1_pclk",
+        "slack_ns": 9.827,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 53
+      },
+      {
+        "launch": "cmos2_pclk",
+        "capture": "cmos2_pclk",
+        "slack_ns": 9.773,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 53
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pixclk_in",
+        "slack_ns": 3.107,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 10803
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pixclk_in",
+        "slack_ns": 3.505,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 4
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pixclk_in",
+        "slack_ns": 4.34,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 3
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pixclk_in",
+        "slack_ns": 3.534,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 2
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "pix_clk",
+        "slack_ns": 4.187,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 109
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pix_clk",
+        "slack_ns": 3.707,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 3570
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pix_clk",
+        "slack_ns": 4.216,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 2
+      },
+      {
+        "launch": "cfg_clk",
+        "capture": "cfg_clk",
+        "slack_ns": 98.433,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 8
+      },
+      {
+        "launch": "clk_25M",
+        "capture": "clk_25M",
+        "slack_ns": 39.032,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 54
+      },
+      {
+        "launch": "rst_clk",
+        "capture": "rst_clk",
+        "slack_ns": 6.016,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 99
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 4.867,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 5593
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 5.105,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 4
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 4.638,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 6
+      }
+    ],
+    "Removal / Fast": [
+      {
+        "launch": "pcie_pclk",
+        "capture": "pcie_pclk",
+        "slack_ns": 0.311,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 101
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 0.227,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 6468
+      },
+      {
+        "launch": "pcie_ref_clk",
+        "capture": "pcie_ref_clk",
+        "slack_ns": 0.284,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 221
+      },
+      {
+        "launch": "rgmii_rxc",
+        "capture": "rgmii_rxc",
+        "slack_ns": 0.584,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 479
+      },
+      {
+        "launch": "sys_clk",
+        "capture": "sys_clk",
+        "slack_ns": 0.338,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 20
+      },
+      {
+        "launch": "cmos1_pclk",
+        "capture": "cmos1_pclk",
+        "slack_ns": 0.592,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 53
+      },
+      {
+        "launch": "cmos2_pclk",
+        "capture": "cmos2_pclk",
+        "slack_ns": 0.558,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 53
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pixclk_in",
+        "slack_ns": 0.249,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 10803
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pix_clk",
+        "slack_ns": 0.233,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 3570
+      },
+      {
+        "launch": "cfg_clk",
+        "capture": "cfg_clk",
+        "slack_ns": 0.584,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 8
+      },
+      {
+        "launch": "clk_25M",
+        "capture": "clk_25M",
+        "slack_ns": 0.309,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 54
+      },
+      {
+        "launch": "rst_clk",
+        "capture": "rst_clk",
+        "slack_ns": 0.248,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 99
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 0.237,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 5593
+      }
+    ],
+    "Minimum Pulse Width / Fast": [
+      {
+        "launch": "pcie_pclk",
+        "capture": "pcie_pclk",
+        "slack_ns": 1.43,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 103
+      },
+      {
+        "launch": "pcie_pclk_div2",
+        "capture": "pcie_pclk_div2",
+        "slack_ns": 3.43,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 6709
+      },
+      {
+        "launch": "pcie_ref_clk",
+        "capture": "pcie_ref_clk",
+        "slack_ns": 4.8,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 229
+      },
+      {
+        "launch": "rgmii_rxc",
+        "capture": "rgmii_rxc",
+        "slack_ns": 3.43,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 1641
+      },
+      {
+        "launch": "sys_clk",
+        "capture": "sys_clk",
+        "slack_ns": 18.318,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 21
+      },
+      {
+        "launch": "cmos1_pclk",
+        "capture": "cmos1_pclk",
+        "slack_ns": 5.382,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 100
+      },
+      {
+        "launch": "cmos2_pclk",
+        "capture": "cmos2_pclk",
+        "slack_ns": 5.382,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 100
+      },
+      {
+        "launch": "pixclk_in",
+        "capture": "pixclk_in",
+        "slack_ns": 2.569,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 13180
+      },
+      {
+        "launch": "pix_clk",
+        "capture": "pix_clk",
+        "slack_ns": 2.569,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 3773
+      },
+      {
+        "launch": "cfg_clk",
+        "capture": "cfg_clk",
+        "slack_ns": 49.452,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 148
+      },
+      {
+        "launch": "clk_25M",
+        "capture": "clk_25M",
+        "slack_ns": 19.631,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 56
+      },
+      {
+        "launch": "rst_clk",
+        "capture": "rst_clk",
+        "slack_ns": 3.8,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 100
+      },
+      {
+        "launch": "ddrphy_sysclk",
+        "capture": "ddrphy_sysclk",
+        "slack_ns": 3.43,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 7040
+      },
+      {
+        "launch": "phy_dq_clk_0",
+        "capture": "phy_dq_clk_0",
+        "slack_ns": 0.035,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 35
+      },
+      {
+        "launch": "phy_dq_sysclk_0",
+        "capture": "phy_dq_sysclk_0",
+        "slack_ns": 1.85,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 35
+      },
+      {
+        "launch": "phy_dq_clk_1",
+        "capture": "phy_dq_clk_1",
+        "slack_ns": 0.035,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 84
+      },
+      {
+        "launch": "phy_dq_sysclk_1",
+        "capture": "phy_dq_sysclk_1",
+        "slack_ns": 2.4,
+        "total_negative_slack_ns": 0.0,
+        "failing_endpoints": 0,
+        "endpoints": 84
+      }
+    ]
+  },
+  "unconstrained_input_port_count": 89,
+  "unconstrained_output_port_count": 126,
+  "unconstrained_input_ports": [
+    "b_in[0]",
+    "b_in[1]",
+    "b_in[2]",
+    "b_in[3]",
+    "b_in[4]",
+    "b_in[5]",
+    "b_in[6]",
+    "b_in[7]",
+    "cmos1_data[0]",
+    "cmos1_data[1]",
+    "cmos1_data[2]",
+    "cmos1_data[3]",
+    "cmos1_data[4]",
+    "cmos1_data[5]",
+    "cmos1_data[6]",
+    "cmos1_data[7]",
+    "cmos1_href",
+    "cmos1_sda",
+    "cmos1_vsync",
+    "cmos2_data[0]",
+    "cmos2_data[1]",
+    "cmos2_data[2]",
+    "cmos2_data[3]",
+    "cmos2_data[4]",
+    "cmos2_data[5]",
+    "cmos2_data[6]",
+    "cmos2_data[7]",
+    "cmos2_href",
+    "cmos2_sda",
+    "cmos2_vsync",
+    "de_in",
+    "g_in[0]",
+    "g_in[1]",
+    "g_in[2]",
+    "g_in[3]",
+    "g_in[4]",
+    "g_in[5]",
+    "g_in[6]",
+    "g_in[7]",
+    "iic_tx_sda",
+    "key0",
+    "key4",
+    "mem_dq[0]",
+    "mem_dq[10]",
+    "mem_dq[11]",
+    "mem_dq[12]",
+    "mem_dq[13]",
+    "mem_dq[14]",
+    "mem_dq[15]",
+    "mem_dq[16]",
+    "mem_dq[17]",
+    "mem_dq[18]",
+    "mem_dq[19]",
+    "mem_dq[1]",
+    "mem_dq[20]",
+    "mem_dq[21]",
+    "mem_dq[22]",
+    "mem_dq[23]",
+    "mem_dq[24]",
+    "mem_dq[25]",
+    "mem_dq[26]",
+    "mem_dq[27]",
+    "mem_dq[28]",
+    "mem_dq[29]",
+    "mem_dq[2]",
+    "mem_dq[30]",
+    "mem_dq[31]",
+    "mem_dq[3]",
+    "mem_dq[4]",
+    "mem_dq[5]",
+    "mem_dq[6]",
+    "mem_dq[7]",
+    "mem_dq[8]",
+    "mem_dq[9]",
+    "pcie_perst_n",
+    "r_in[0]",
+    "r_in[1]",
+    "r_in[2]",
+    "r_in[3]",
+    "r_in[4]",
+    "r_in[5]",
+    "r_in[6]",
+    "r_in[7]",
+    "rgmii_rx_ctl",
+    "rgmii_rxd[0]",
+    "rgmii_rxd[1]",
+    "rgmii_rxd[2]",
+    "rgmii_rxd[3]",
+    "vs_in"
+  ],
+  "unconstrained_output_ports": [
+    "b_out[0]",
+    "b_out[1]",
+    "b_out[2]",
+    "b_out[3]",
+    "b_out[4]",
+    "b_out[5]",
+    "b_out[6]",
+    "b_out[7]",
+    "cmos1_reset",
+    "cmos1_scl",
+    "cmos1_sda",
+    "cmos2_reset",
+    "cmos2_scl",
+    "cmos2_sda",
+    "cmos_init_done[0]",
+    "cmos_init_done[1]",
+    "ddr_init_done",
+    "de_out",
+    "g_out[0]",
+    "g_out[1]",
+    "g_out[2]",
+    "g_out[3]",
+    "g_out[4]",
+    "g_out[5]",
+    "g_out[6]",
+    "g_out[7]",
+    "hdmi_int_led",
+    "heart_beat_led",
+    "hs_out",
+    "iic_tx_scl",
+    "iic_tx_sda",
+    "mem_a[0]",
+    "mem_a[10]",
+    "mem_a[11]",
+    "mem_a[12]",
+    "mem_a[13]",
+    "mem_a[14]",
+    "mem_a[1]",
+    "mem_a[2]",
+    "mem_a[3]",
+    "mem_a[4]",
+    "mem_a[5]",
+    "mem_a[6]",
+    "mem_a[7]",
+    "mem_a[8]",
+    "mem_a[9]",
+    "mem_ba[0]",
+    "mem_ba[1]",
+    "mem_ba[2]",
+    "mem_cas_n",
+    "mem_ck",
+    "mem_ck_n",
+    "mem_cke",
+    "mem_cs_n",
+    "mem_dm[0]",
+    "mem_dm[1]",
+    "mem_dm[2]",
+    "mem_dm[3]",
+    "mem_dq[0]",
+    "mem_dq[10]",
+    "mem_dq[11]",
+    "mem_dq[12]",
+    "mem_dq[13]",
+    "mem_dq[14]",
+    "mem_dq[15]",
+    "mem_dq[16]",
+    "mem_dq[17]",
+    "mem_dq[18]",
+    "mem_dq[19]",
+    "mem_dq[1]",
+    "mem_dq[20]",
+    "mem_dq[21]",
+    "mem_dq[22]",
+    "mem_dq[23]",
+    "mem_dq[24]",
+    "mem_dq[25]",
+    "mem_dq[26]",
+    "mem_dq[27]",
+    "mem_dq[28]",
+    "mem_dq[29]",
+    "mem_dq[2]",
+    "mem_dq[30]",
+    "mem_dq[31]",
+    "mem_dq[3]",
+    "mem_dq[4]",
+    "mem_dq[5]",
+    "mem_dq[6]",
+    "mem_dq[7]",
+    "mem_dq[8]",
+    "mem_dq[9]",
+    "mem_dqs[0]",
+    "mem_dqs[1]",
+    "mem_dqs[2]",
+    "mem_dqs[3]",
+    "mem_dqs_n[0]",
+    "mem_dqs_n[1]",
+    "mem_dqs_n[2]",
+    "mem_dqs_n[3]",
+    "mem_odt",
+    "mem_ras_n",
+    "mem_rst_n",
+    "mem_we_n",
+    "pcie_txn[0]",
+    "pcie_txn[1]",
+    "pcie_txn[2]",
+    "pcie_txn[3]",
+    "pcie_txp[0]",
+    "pcie_txp[1]",
+    "pcie_txp[2]",
+    "pcie_txp[3]",
+    "pix_clk",
+    "r_out[0]",
+    "r_out[1]",
+    "r_out[2]",
+    "r_out[3]",
+    "r_out[4]",
+    "r_out[5]",
+    "r_out[6]",
+    "r_out[7]",
+    "rgmii_tx_ctl",
+    "rgmii_txd[0]",
+    "rgmii_txd[1]",
+    "rgmii_txd[2]",
+    "rgmii_txd[3]",
+    "rstn_out",
+    "vs_out"
+  ],
+  "unconstrained_scope": "Unique ports warned by final STA; not a count of paths.",
+  "unclocked_pins": [],
+  "clock_summary": [
+    {
+      "name": "pcie_pclk",
+      "period_ns": 4.0,
+      "waveform_ns": [
+        0.0,
+        2.0
+      ],
+      "type": "Declared",
+      "clock_loads": 109,
+      "non_clock_loads": 0,
+      "sources": "{u_pcie_ram_endpoint/u_ips2l_pcie_wrap/U_IPS2L_PCIE_TOP/U_IPS2L_HSSTLP_PCIE_SOFT_PHY/x4.GTP_HSST_4LANE_TOP/U_GTP_HSSTLP_WRAPPER/CHANNEL1_ENABLE.U_GTP_HSSTLP_LANE1/gophsst/P_TCLK2FABRIC}"
+    },
+    {
+      "name": "pcie_pclk_div2",
+      "period_ns": 8.0,
+      "waveform_ns": [
+        0.0,
+        4.0
+      ],
+      "type": "Declared",
+      "clock_loads": 7265,
+      "non_clock_loads": 0,
+      "sources": "{u_pcie_ram_endpoint/u_ips2l_pcie_wrap/U_IPS2L_PCIE_TOP/U_IPS2L_HSSTLP_PCIE_SOFT_PHY/x4.GTP_HSST_4LANE_TOP/U_GTP_HSSTLP_WRAPPER/CHANNEL0_ENABLE.U_GTP_HSSTLP_LANE0/gophsst/P_TCLK2FABRIC}"
+    },
+    {
+      "name": "pcie_ref_clk",
+      "period_ns": 10.0,
+      "waveform_ns": [
+        0.0,
+        5.0
+      ],
+      "type": "Declared",
+      "clock_loads": 285,
+      "non_clock_loads": 0,
+      "sources": "{u_pcie_ram_endpoint/u_ips2l_pcie_wrap/U_IPS2L_PCIE_TOP/U_IPS2L_HSSTLP_PCIE_SOFT_PHY/u_clkbufg/gopclkbufg/CLKOUT}"
+    },
+    {
+      "name": "rgmii_rxc",
+      "period_ns": 8.0,
+      "waveform_ns": [
+        0.0,
+        4.0
+      ],
+      "type": "Declared",
+      "clock_loads": 1794,
+      "non_clock_loads": 0,
+      "sources": "{rgmii_rxc}"
+    },
+    {
+      "name": "rgmii_txc",
+      "period_ns": 8.0,
+      "waveform_ns": [
+        0.0,
+        4.0
+      ],
+      "type": "Declared",
+      "clock_loads": 0,
+      "non_clock_loads": 0,
+      "sources": "{rgmii_txc}"
+    },
+    {
+      "name": "sys_clk",
+      "period_ns": 37.037,
+      "waveform_ns": [
+        0.0,
+        18.518
+      ],
+      "type": "Declared",
+      "clock_loads": 58,
+      "non_clock_loads": 3,
+      "sources": "{sys_clk}"
+    },
+    {
+      "name": "pix_clk",
+      "period_ns": 6.734,
+      "waveform_ns": [
+        0.0,
+        3.367
+      ],
+      "type": "Generated (sys_clk)",
+      "clock_loads": 4440,
+      "non_clock_loads": 1,
+      "sources": "{u_pll/u_gpll/gpll_inst/CLKOUT0}"
+    },
+    {
+      "name": "cfg_clk",
+      "period_ns": 100.0481,
+      "waveform_ns": [
+        0.0,
+        50.022
+      ],
+      "type": "Generated (sys_clk)",
+      "clock_loads": 187,
+      "non_clock_loads": 0,
+      "sources": "{u_pll/u_gpll/gpll_inst/CLKOUT1}"
+    },
+    {
+      "name": "clk_25M",
+      "period_ns": 40.404,
+      "waveform_ns": [
+        0.0,
+        20.201
+      ],
+      "type": "Generated (sys_clk)",
+      "clock_loads": 63,
+      "non_clock_loads": 0,
+      "sources": "{u_pll/u_gpll/gpll_inst/CLKOUT2}"
+    },
+    {
+      "name": "ref_clk",
+      "period_ns": 8.0,
+      "waveform_ns": [
+        0.0,
+        4.0
+      ],
+      "type": "Declared",
+      "clock_loads": 0,
+      "non_clock_loads": 4,
+      "sources": "{clk_p}"
+    },
+    {
+      "name": "rst_clk",
+      "period_ns": 8.0,
+      "waveform_ns": [
+        0.0,
+        4.0
+      ],
+      "type": "Generated (ref_clk)",
+      "clock_loads": 120,
+      "non_clock_loads": 0,
+      "sources": "{u_ddr3_test_h/u_ddrphy_top/rst_clk_gpll/u_gpll/gpll_inst/CLKOUT0}"
+    },
+    {
+      "name": "ddrphy_sysclk",
+      "period_ns": 8.0,
+      "waveform_ns": [
+        0.0,
+        4.0
+      ],
+      "type": "Generated (ref_clk)",
+      "clock_loads": 7927,
+      "non_clock_loads": 1,
+      "sources": "{u_ddr3_test_h/u_ddrphy_top/ddrphy_gpll/u_gpll/gpll_inst/CLKOUT0}"
+    },
+    {
+      "name": "phy_dq_clk_0",
+      "period_ns": 1.0,
+      "waveform_ns": [
+        0.0,
+        0.5
+      ],
+      "type": "Generated (ref_clk)",
+      "clock_loads": 35,
+      "non_clock_loads": 1,
+      "sources": "{u_ddr3_test_h/u_ddrphy_top/ddrphy_slice_top/i_dqs_bank[0].ddrphy_ppll/u_ppll/ppll_inst/CLKOUTPHY}"
+    },
+    {
+      "name": "phy_dq_sysclk_0",
+      "period_ns": 8.0,
+      "waveform_ns": [
+        2.0,
+        6.0
+      ],
+      "type": "Generated (phy_dq_clk_0)",
+      "clock_loads": 35,
+      "non_clock_loads": 0,
+      "sources": "{u_ddr3_test_h/u_ddrphy_top/ddrphy_slice_top/i_dqs_bank[0].u_ddrphy_ioclkdiv/ddrphy_ioclk_div_inst/CLKOUT}"
+    },
+    {
+      "name": "phy_dq_clk_1",
+      "period_ns": 1.0,
+      "waveform_ns": [
+        0.0,
+        0.5
+      ],
+      "type": "Generated (ref_clk)",
+      "clock_loads": 84,
+      "non_clock_loads": 1,
+      "sources": "{u_ddr3_test_h/u_ddrphy_top/ddrphy_slice_top/i_dqs_bank[1].ddrphy_ppll/u_ppll/ppll_inst/CLKOUTPHY}"
+    },
+    {
+      "name": "phy_dq_sysclk_1",
+      "period_ns": 8.0,
+      "waveform_ns": [
+        2.0,
+        6.0
+      ],
+      "type": "Generated (phy_dq_clk_1)",
+      "clock_loads": 84,
+      "non_clock_loads": 0,
+      "sources": "{u_ddr3_test_h/u_ddrphy_top/ddrphy_slice_top/i_dqs_bank[1].u_ddrphy_ioclkdiv/ddrphy_ioclk_div_inst/CLKOUT}"
+    },
+    {
+      "name": "cmos1_pclk",
+      "period_ns": 11.905,
+      "waveform_ns": [
+        0.0,
+        5.952
+      ],
+      "type": "Declared",
+      "clock_loads": 120,
+      "non_clock_loads": 0,
+      "sources": "{cmos1_pclk}"
+    },
+    {
+      "name": "cmos2_pclk",
+      "period_ns": 11.905,
+      "waveform_ns": [
+        0.0,
+        5.952
+      ],
+      "type": "Declared",
+      "clock_loads": 120,
+      "non_clock_loads": 0,
+      "sources": "{cmos2_pclk}"
+    },
+    {
+      "name": "pixclk_in",
+      "period_ns": 6.734,
+      "waveform_ns": [
+        0.0,
+        3.367
+      ],
+      "type": "Declared",
+      "clock_loads": 14278,
+      "non_clock_loads": 0,
+      "sources": "{pixclk_in}"
+    }
+  ],
+  "critical_slow_setup_paths": {
+    "pcie_pclk_div2 / max (slow corner) / sequential timing path": {
+      "startpoint": "u_pcie_ram_endpoint/u_rt_pcie_dma/u_rt_dma/u_rt02_dma_tx/u_rt0205_pio_rd_ram/u_rt020301_dma_rd_ram_ctrl/rd_addr[7]/opit_0_inv_AQ_perm/CLK",
+      "endpoint": "u_fpga_road/read_data[72]/opit_0_inv_L6Q_perm/I3",
+      "slack_ns": 0.594,
+      "logic_levels": 5,
+      "logic_ns": 1.163,
+      "route_ns": 5.834,
+      "max_data_fanout": 155,
+      "data_nets": [
+        "net (fanout=155)      1.896       4.481         feature_read_addr[5]",
+        "net (fanout=5)        0.768       5.473         ref_read",
+        "net (fanout=3)        0.420       6.001         u_fpga_road/_N197213",
+        "net (fanout=1)        0.405       6.630         u_fpga_road/read_word_selected [4]",
+        "net (fanout=128)      1.772       8.698         u_fpga_road/N71",
+        "net (fanout=1)        0.573       9.379         u_fpga_road/_N181238"
+      ]
+    },
+    "rgmii_rxc / max (slow corner) / sequential timing path": {
+      "startpoint": "u_eth_ch3_input/u_udp_rx/pos[4]/opit_0_inv_AQ_perm/CLK",
+      "endpoint": "u_eth_ch3_input/u_decode/pixels_113x2_x2x4/ram32x2B/DIL",
+      "slack_ns": 0.514,
+      "logic_levels": 4,
+      "logic_ns": 1.149,
+      "route_ns": 6.281,
+      "max_data_fanout": 260,
+      "data_nets": [
+        "net (fanout=260)      1.783       5.849         u_eth_ch3_input/u_udp_rx/pos [1]",
+        "net (fanout=1)        0.622       6.695         u_eth_ch3_input/u_udp_rx/_N31400",
+        "net (fanout=2)        0.409       7.465         u_eth_ch3_input/u_udp_rx/_N53526",
+        "net (fanout=56)       2.774      10.393         u_eth_ch3_input/udp_data [6]",
+        "net (fanout=1)        0.693      11.293         u_eth_ch3_input/u_decode/N827 [115]"
+      ]
+    },
+    "pixclk_in / max (slow corner) / sequential timing path": {
+      "startpoint": "u_fpga_road/u_lane/phase[1]/opit_0_inv_L6Q_LUT6DQL5Q_perm/CLK",
+      "endpoint": "u_fpga_road/u_lane/current_box[26]/opit_0_inv_L6Q_perm/I4",
+      "slack_ns": 0.494,
+      "logic_levels": 3,
+      "logic_ns": 0.9,
+      "route_ns": 5.108,
+      "max_data_fanout": 340,
+      "data_nets": [
+        "net (fanout=340)      1.634       5.337         u_fpga_road/u_lane/phase [2]",
+        "net (fanout=115)      1.330       6.882         u_fpga_road/u_lane/N125065 [9]",
+        "net (fanout=1)        0.404       7.394         u_fpga_road/u_lane/_N48",
+        "net (fanout=120)      1.740       9.460         u_fpga_road/u_lane/_N64186"
+      ]
+    }
+  },
+  "post_route_utilization": {
+    "sha256": "83fa684acd5ca3d6b6ed67dc77d255168f4766f59f0183a584d4a0fe401814dc",
+    "resources": {
+      "ADC": {
+        "used": 0.0,
+        "available": 1.0,
+        "percent": 0.0
+      },
+      "ANALOG": {
+        "used": 0.0,
+        "available": 1.0,
+        "percent": 0.0
+      },
+      "APM": {
+        "used": 4.0,
+        "available": 240.0,
+        "percent": 2.0
+      },
+      "BKCL": {
+        "used": 6.0,
+        "available": 6.0,
+        "percent": 100.0
+      },
+      "CCS": {
+        "used": 1.0,
+        "available": 1.0,
+        "percent": 100.0
+      },
+      "CLMA": {
+        "used": 8904.0,
+        "available": 11675.0,
+        "percent": 77.0
+      },
+      "CLMA.FF": {
+        "used": 32146.0,
+        "available": 93400.0,
+        "percent": 35.0
+      },
+      "CLMA.LUT": {
+        "used": 24239.0,
+        "available": 46700.0,
+        "percent": 52.0
+      },
+      "CLMS": {
+        "used": 3736.0,
+        "available": 4975.0,
+        "percent": 76.0
+      },
+      "CLMS.FF": {
+        "used": 12207.0,
+        "available": 39800.0,
+        "percent": 31.0
+      },
+      "CLMS.LUT": {
+        "used": 10449.0,
+        "available": 19900.0,
+        "percent": 53.0
+      },
+      "DDRPHY_CPD": {
+        "used": 1.0,
+        "available": 12.0,
+        "percent": 9.0
+      },
+      "DDRPHY_IOCLK_DIV": {
+        "used": 2.0,
+        "available": 6.0,
+        "percent": 34.0
+      },
+      "DDR_PHY": {
+        "used": 7.0,
+        "available": 24.0,
+        "percent": 30.0
+      },
+      "DRM": {
+        "used": 103.5,
+        "available": 155.0,
+        "percent": 67.0
+      },
+      "GPLL": {
+        "used": 3.0,
+        "available": 6.0,
+        "percent": 50.0
+      },
+      "GSEB": {
+        "used": 0.0,
+        "available": 218.0,
+        "percent": 0.0
+      },
+      "HARD0": {
+        "used": 4003.0,
+        "available": 10550.0,
+        "percent": 38.0
+      },
+      "HCKB": {
+        "used": 43.0,
+        "available": 96.0,
+        "percent": 45.0
+      },
+      "HSSTLP": {
+        "used": 1.0,
+        "available": 2.0,
+        "percent": 50.0
+      },
+      "IO": {
+        "used": 180.0,
+        "available": 300.0,
+        "percent": 60.0
+      },
+      "IOCKB": {
+        "used": 0.0,
+        "available": 24.0,
+        "percent": 0.0
+      },
+      "IOLHR": {
+        "used": 179.0,
+        "available": 300.0,
+        "percent": 60.0
+      },
+      "KEYRAM": {
+        "used": 0.0,
+        "available": 1.0,
+        "percent": 0.0
+      },
+      "MRCKB": {
+        "used": 1.0,
+        "available": 12.0,
+        "percent": 9.0
+      },
+      "PCIE": {
+        "used": 1.0,
+        "available": 1.0,
+        "percent": 100.0
+      },
+      "PPLL": {
+        "used": 2.0,
+        "available": 6.0,
+        "percent": 34.0
+      },
+      "RCKB": {
+        "used": 3.0,
+        "available": 24.0,
+        "percent": 13.0
+      },
+      "SCANCHAIN": {
+        "used": 0.0,
+        "available": 1.0,
+        "percent": 0.0
+      },
+      "SPAD": {
+        "used": 2.0,
+        "available": 8.0,
+        "percent": 25.0
+      },
+      "TSERDES": {
+        "used": 14.0,
+        "available": 48.0,
+        "percent": 30.0
+      },
+      "USCM": {
+        "used": 13.0,
+        "available": 32.0,
+        "percent": 41.0
+      }
+    },
+    "fabric_totals": {
+      "FF": {
+        "used": 44353.0,
+        "available": 133200.0
+      },
+      "LUT": {
+        "used": 34688.0,
+        "available": 66600.0
+      }
+    },
+    "scope": "Final route_optimize resource table; distinct from device_map."
+  },
+  "stage_seconds": {
+    "compile": 65,
+    "synthesize": 222,
+    "dev_map": 81,
+    "place": 356,
+    "route": 194,
+    "route_optimize": 134,
+    "report_timing": 60,
+    "gen_bit_stream": 47
+  },
+  "stage_sum_seconds": 1159,
+  "launch_to_bitstream_seconds": 1264.002927,
+  "launch_to_wrapper_exit_seconds": 1277.54463,
+  "started_at": "2026-11-02T12:27:24.7564441+08:00",
+  "bitstream_written_at": "2026-11-02T12:48:28.7593709+08:00",
+  "bitstream_bytes": 3791112,
+  "bitstream_sha256": "9d3963bdc0520009d38dc94317294912fc868cb5f668d1d5e5c45e9f52253eef",
+  "limits": [
+    "Extracted results from the completed implementation; not a new full implementation.",
+    "Unconstrained values count unique ports, not paths.",
+    "External min/max budgets, exceptions and physical CDC/RDC signoff remain open.",
+    "No board download or sustained 1080p60 full-chain acceptance for this bitstream.",
+    "One runtime measurement; OS cache, background load and thermal state are not controlled."
+  ]
+}

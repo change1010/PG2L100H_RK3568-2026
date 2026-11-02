@@ -3,6 +3,10 @@
 !/.gitignore
 !/.gitattributes
 !/README.md
+!/TIMING_REPORT.md
+!/impl.tcl
+!/scripts/
+!/reports/
 !/video_dma_hdmi.pds
 !/rtl/
 !/ip/

@@ -7,18 +7,24 @@
 // 目标器件：Pango
 
 //sclk，sdin数据传输时序代码（i2c写控制代码）
-module i2c_com(clock_i2c        ,  //i2c控制接口传输所需时钟，0-400khz，此处为20khz
+module i2c_com #(
+    parameter CLOCK_ENABLE_MODE = 0
+)(clock_i2c        ,  //i2c控制接口传输所需时钟，0-400khz，此处为20khz
                camera_rstn      ,     
                ack              ,  //应答信号
                i2c_data         ,  //sdin接口传输的32位数据
                start            ,  //开始传输标志
                tr_end           ,  //传输结束标志
                i2c_sclk         ,  //FPGA与camera iic时钟接口
-               i2c_sdat            //FPGA与camera iic数据接口
+               i2c_sdat          , //FPGA与camera iic数据接口
+               logic_clk        ,
+               logic_enable
 );        
     input [31:0]i2c_data;
     input camera_rstn;
     input clock_i2c;
+    input logic_clk;
+    input logic_enable;
     output ack;
     input start;
     output tr_end;
@@ -34,16 +40,18 @@ module i2c_com(clock_i2c        ,  //i2c控制接口传输所需时钟，0-400kh
     wire i2c_sclk;
     wire i2c_sdat;
     wire ack;
+    wire state_clk = CLOCK_ENABLE_MODE ? logic_clk : clock_i2c;
+    wire state_enable = !CLOCK_ENABLE_MODE || logic_enable;
    
     assign ack=ack0|ack1|ack2|ack3;
     assign i2c_sclk=sclk|(((cyc_count>=4)&(cyc_count<=39))?~clock_i2c:0);
     assign i2c_sdat=reg_sdat?1'bz:0; 
    
-    always@(posedge clock_i2c or negedge camera_rstn)
+    always@(posedge state_clk or negedge camera_rstn)
     begin
        if(!camera_rstn)
          cyc_count<=6'b111111;
-       else 
+       else if (state_enable)
 		   begin
            if(start==0)
              cyc_count<=0;
@@ -53,7 +61,7 @@ module i2c_com(clock_i2c        ,  //i2c控制接口传输所需时钟，0-400kh
     end
 	 
 	 
-    always@(posedge clock_i2c or negedge camera_rstn)
+    always@(posedge state_clk or negedge camera_rstn)
     begin
        if(!camera_rstn)
        begin
@@ -65,7 +73,7 @@ module i2c_com(clock_i2c        ,  //i2c控制接口传输所需时钟，0-400kh
           sclk<=1;
           reg_sdat<=1;
        end
-       else
+       else if (state_enable)
           case(cyc_count)
           0:begin ack0<=1;ack1<=1;ack2<=1;ack3<=1;tr_end<=0;sclk<=1;reg_sdat<=1;end
           1:reg_sdat<=0;                 //开始传输

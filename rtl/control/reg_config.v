@@ -33,20 +33,26 @@
      reg [1:0] divider_reset_release;
      reg [1:0] initial_en_sync;
      wire config_rst_n = reset_release[1];
+     // Keep the SCCB pin phase, but clock all state with the PLL parent.
+     // PDS 2023.2-SP3 cannot represent its actual 101010ns slow period.
+     wire config_tick = divider_reset_release[1] &&
+         clock_20k_cnt == 16'd1249 && !clock_20k;
      always @(posedge clk_25M or negedge camera_rstn) begin
          if (!camera_rstn) divider_reset_release <= 0;
          else divider_reset_release <= {divider_reset_release[0], 1'b1};
      end
-     always @(posedge clock_20k or negedge camera_rstn) begin
+     always @(posedge clk_25M or negedge camera_rstn) begin
          if (!camera_rstn) reset_release <= 0;
-         else reset_release <= {reset_release[0], 1'b1};
+         else if (config_tick) reset_release <= {reset_release[0], 1'b1};
      end
-     always @(posedge clock_20k or negedge config_rst_n) begin
+     always @(posedge clk_25M or negedge config_rst_n) begin
          if (!config_rst_n) initial_en_sync <= 0;
-         else initial_en_sync <= {initial_en_sync[0], initial_en};
+         else if (config_tick) initial_en_sync <= {initial_en_sync[0], initial_en};
      end
 	  
-     i2c_com u1(.clock_i2c(clock_20k),
+     i2c_com #(.CLOCK_ENABLE_MODE(1)) u1(.clock_i2c(clock_20k),
+               .logic_clk(clk_25M),
+               .logic_enable(config_tick),
                .camera_rstn(config_rst_n),
                .ack(ack),
                .i2c_data(i2c_data),
@@ -72,7 +78,7 @@ begin
 end
 
 // 通过 SCCB 配置传感器；寄存器写入未应答时重试。
-always@(posedge clock_20k or negedge config_rst_n)
+always@(posedge clk_25M or negedge config_rst_n)
 begin
    if(!config_rst_n) begin
        config_step<=0;
@@ -82,7 +88,7 @@ begin
        i2c_data<=0;
        transaction_nack<=1'b1;
    end
-   else begin
+   else if (config_tick) begin
       if(initial_en_sync[1] && reg_conf_done_reg==1'b0) begin
 			  if(reg_index<357) begin               //配置寄存器
 					 case(config_step)

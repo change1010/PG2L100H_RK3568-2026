@@ -1063,9 +1063,26 @@
     )
     (_task tsk_compile
         (_command cmd_compile
-            (_gci_state (_integer 0))
+            (_gci_state (_integer 2))
             (_option force_to_run (_switch ON))
             (_option top_module (_string "video_dma_hdmi_top"))
+            (_db_output
+                (_file "compile/video_dma_hdmi_top_comp.adf"
+                    (_format adif)
+                    (_timespec "2026-11-01T12:05:12")
+                    (_library "video_dma_hdmi_top_comp")
+                )
+            )
+            (_output
+                (_file "compile/video_dma_hdmi_top.cmr"
+                    (_format verilog)
+                    (_timespec "2026-11-01T12:05:13")
+                )
+                (_file "compile/cmr.db"
+                    (_format text)
+                    (_timespec "2026-11-01T12:05:13")
+                )
+            )
         )
         (_widget wgt_rtl_view
             (_attribute _click_to_run (_switch ON))
@@ -1073,9 +1090,43 @@
     )
     (_task tsk_synthesis
         (_command cmd_synthesize
-            (_gci_state (_integer 0))
+            (_gci_state (_integer 2))
             (_option max_path (_integer 500))
             (_option selected_syn_tool_opt (_integer 2))
+            (_db_output
+                (_file "synthesize/video_dma_hdmi_top_syn.adf"
+                    (_format adif)
+                    (_timespec "2026-11-01T12:10:35")
+                    (_library "video_dma_hdmi_top_syn")
+                )
+            )
+            (_output
+                (_file "synthesize/video_dma_hdmi_top_syn.vm"
+                    (_format structural_verilog)
+                    (_timespec "2026-11-01T12:10:38")
+                    (_library "video_dma_hdmi_top_syn")
+                )
+                (_file "synthesize/video_dma_hdmi_top_controlsets.txt"
+                    (_format text)
+                    (_timespec "2026-11-01T12:10:20")
+                )
+                (_file "synthesize/video_dma_hdmi_top_exception.snr"
+                    (_format text)
+                    (_timespec "2026-11-01T12:10:51")
+                )
+                (_file "synthesize/video_dma_hdmi_top_syn.netlist"
+                    (_format text)
+                    (_timespec "2026-11-01T12:10:51")
+                )
+                (_file "synthesize/snr.db"
+                    (_format text)
+                    (_timespec "2026-11-01T12:11:18")
+                )
+                (_file "synthesize/video_dma_hdmi_top.snr"
+                    (_format text)
+                    (_timespec "2026-11-01T12:11:12")
+                )
+            )
         )
         (_widget wgt_tech_view
             (_attribute _click_to_run (_switch ON))
@@ -1090,7 +1141,28 @@
     )
     (_task tsk_devmap
         (_command cmd_devmap
-            (_gci_state (_integer 0))
+            (_gci_state (_integer 2))
+            (_db_output
+                (_file "device_map/video_dma_hdmi_top_map.adf"
+                    (_format adif)
+                    (_timespec "2026-11-01T12:13:18")
+                    (_library "video_dma_hdmi_top_map")
+                )
+            )
+            (_output
+                (_file "device_map/video_dma_hdmi_top_dmr.prt"
+                    (_format text)
+                    (_timespec "2026-11-01T12:11:58")
+                )
+                (_file "device_map/video_dma_hdmi_top.dmr"
+                    (_format text)
+                    (_timespec "2026-11-01T12:13:18")
+                )
+                (_file "device_map/dmr.db"
+                    (_format text)
+                    (_timespec "2026-11-01T12:13:18")
+                )
+            )
         )
         (_widget wgt_edit_placement_cons
             (_attribute _click_to_run (_switch ON))
@@ -1114,19 +1186,110 @@
     )
     (_task tsk_pnr
         (_command cmd_place
-            (_gci_state (_integer 0))
+            (_gci_state (_integer 2))
+            (_option optimize_multi_corner_timing (_switch ON))
+            (_option optimize_gp_recovery (_switch ON))
+            (_option optimize_dp_recovery (_switch ON))
+            (_option optimize_rp_recovery (_switch ON))
+            (_db_output
+                (_file "place_route/video_dma_hdmi_top_plc.adf"
+                    (_format adif)
+                    (_timespec "2026-11-01T12:23:01")
+                    (_library "video_dma_hdmi_top_plc")
+                )
+            )
+            (_output
+                (_file "place_route/clock_utilization.txt"
+                    (_format text)
+                    (_timespec "2026-11-01T12:22:45")
+                )
+                (_file "place_route/video_dma_hdmi_top.plr"
+                    (_format text)
+                    (_timespec "2026-11-01T12:23:03")
+                )
+                (_file "place_route/video_dma_hdmi_top_prr_place.prt"
+                    (_format text)
+                    (_timespec "2026-11-01T12:22:45")
+                )
+                (_file "place_route/place.cgs"
+                    (_format text)
+                    (_timespec "2026-11-01T12:22:44")
+                )
+                (_file "place_route/plr.db"
+                    (_format text)
+                    (_timespec "2026-11-01T12:23:03")
+                )
+            )
         )
         (_command cmd_route
-            (_gci_state (_integer 0))
-            (_option route_mode (_string "fast"))
+            (_gci_state (_integer 2))
+            (_option route_mode (_string "normal"))
+            (_option number_of_router_thread (_integer 4))
+            (_option optimize_routing_recovery (_boolean TRUE))
+            (_option share_router_control_signal (_boolean FALSE))
+            (_db_output
+                (_file "place_route/video_dma_hdmi_top_route.adf"
+                    (_format adif)
+                    (_timespec "2026-11-01T12:27:27")
+                    (_library "video_dma_hdmi_top_route")
+                )
+            )
+            (_output
+                (_file "place_route/video_dma_hdmi_top.rur"
+                    (_format text)
+                    (_timespec "2026-11-01T12:27:28")
+                )
+                (_file "place_route/video_dma_hdmi_top_prr_route.prt"
+                    (_format text)
+                    (_timespec "2026-11-01T12:26:36")
+                )
+                (_file "place_route/video_dma_hdmi_top_route.netlist"
+                    (_format text)
+                    (_timespec "2026-11-01T12:27:27")
+                )
+                (_file "place_route/rur.db"
+                    (_format text)
+                    (_timespec "2026-11-01T12:27:28")
+                )
+            )
         )
         (_command cmd_route_optimize
-            (_gci_state (_integer 0))
+            (_gci_state (_integer 2))
             (_attribute _auto_exe_lock (_switch OFF))
+            (_option fix_hold_violation (_switch ON))
+            (_db_output
+                (_file "place_route/video_dma_hdmi_top_pnr.adf"
+                    (_format adif)
+                    (_timespec "2026-11-01T12:29:36")
+                    (_library "video_dma_hdmi_top_pnr")
+                )
+            )
+            (_output
+                (_file "place_route/video_dma_hdmi_top.ror"
+                    (_format text)
+                    (_timespec "2026-11-01T12:29:38")
+                )
+                (_file "place_route/video_dma_hdmi_top_prr_route_optimize.prt"
+                    (_format text)
+                    (_timespec "2026-11-01T12:28:44")
+                )
+                (_file "place_route/video_dma_hdmi_top_route_optimize.netlist"
+                    (_format text)
+                    (_timespec "2026-11-01T12:29:36")
+                )
+                (_file "place_route/ror.db"
+                    (_format text)
+                    (_timespec "2026-11-01T12:29:38")
+                )
+            )
         )
         (_command cmd_pnr
-            (_gci_state (_integer 0))
+            (_gci_state (_integer 2))
             (_option gplace_seed (_integer 1))
+            (_option gplace_times (_integer 1))
+            (_option seed_step (_integer 1))
+            (_option saved_outcome (_integer 1))
+            (_option parallel (_integer 1))
         )
         (_widget wgt_power_calculator
             (_attribute _click_to_run (_switch ON))
@@ -1135,9 +1298,30 @@
             (_attribute _click_to_run (_switch ON))
         )
         (_command cmd_report_post_pnr_timing
-            (_gci_state (_integer 0))
+            (_gci_state (_integer 2))
             (_attribute _auto_exe_lock (_switch OFF))
             (_option max_path (_integer 500))
+            (_db_output
+                (_file "report_timing/video_dma_hdmi_top_rtp.adf"
+                    (_format adif)
+                    (_timespec "2026-11-01T12:31:22")
+                    (_library "video_dma_hdmi_top_rtp")
+                )
+            )
+            (_output
+                (_file "report_timing/video_dma_hdmi_top_exception.rtr"
+                    (_format text)
+                    (_timespec "2026-11-01T12:31:15")
+                )
+                (_file "report_timing/video_dma_hdmi_top.rtr"
+                    (_format text)
+                    (_timespec "2026-11-01T12:31:39")
+                )
+                (_file "report_timing/rtr.db"
+                    (_format text)
+                    (_timespec "2026-11-01T12:31:50")
+                )
+            )
         )
         (_widget wgt_arch_browser
             (_attribute _click_to_run (_switch ON))
@@ -1155,7 +1339,25 @@
     )
     (_task tsk_gen_bitstream
         (_command cmd_gen_bitstream
-            (_gci_state (_integer 0))
+            (_gci_state (_integer 2))
+            (_output
+                (_file "generate_bitstream/video_dma_hdmi_top.sbit"
+                    (_format text)
+                    (_timespec "2026-11-01T12:34:28")
+                )
+                (_file "generate_bitstream/video_dma_hdmi_top.smsk"
+                    (_format text)
+                    (_timespec "2026-11-01T12:34:28")
+                )
+                (_file "generate_bitstream/bgr.db"
+                    (_format text)
+                    (_timespec "2026-11-01T12:34:29")
+                )
+                (_file "generate_bitstream/video_dma_hdmi_top.bgr"
+                    (_format text)
+                    (_timespec "2026-11-01T12:34:29")
+                )
+            )
         )
     )
 )

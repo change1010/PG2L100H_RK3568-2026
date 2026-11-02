@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "published_compile_inputs_matching_frozen_build": 270,
+  "registered_readable_rtl_sources": 106,
+  "registered_encrypted_bridge_sources": 1,
+  "published_build_inputs_hashed": 272,
+  "tcl_successful_commands_match_completed_build": true,
+  "pnr_failure_stops_timing_and_bitstream": true,
+  "pds_strategy_matches_completed_build": true,
+  "source_dependencies_pass": true,
+  "build_wrapper_matches_completed_build": true,
+  "publication_date": "2026-11-02",
+  "standalone_pds_compile_pass": true,
+  "standalone_compile_tool_real_seconds": 66,
+  "standalone_compile_log_sha256": "aab54dca78e2cf98be4a15c060ce9774eff82a32dfcd52ca2e41a1c9005ea5f4",
+  "full_implementation_repeated_for_publication": false,
+  "board_download_performed_for_publication": false,
+  "scope": "Publication dependency and Compile validation. Final STA and bitstream results refer to the completed implementation with matching compile inputs."
+}

@@ -754,6 +754,7 @@ create_clock -name {pixclk_in} [get_ports {pixclk_in}] -period {6.734} -waveform
 create_generated_clock -name {pix_clk} -master_clock {sys_clk} -source [get_ports {sys_clk}] -multiply_by {11} -divide_by {2} [get_pins {u_pll/u_gpll.CLKOUT0}]
 create_generated_clock -name {cfg_clk} -master_clock {sys_clk} -source [get_ports {sys_clk}] -multiply_by {77} -divide_by {208} [get_pins {u_pll/u_gpll.CLKOUT1}]
 create_generated_clock -name {clk_25M} -master_clock {sys_clk} -source [get_ports {sys_clk}] -multiply_by {11} -divide_by {12} [get_pins {u_pll/u_gpll.CLKOUT2}]
+# SCCB state uses clk_25M with a /2500 enable; clock_20k is pin phase only.
 ###==== BEGIN "Generated Clocks"
 create_generated_clock -name {rst_clk} -source [get_ports {clk_p}] [get_pins {u_ddr3_test_h.u_ddrphy_top.rst_clk_gpll/clkout0}] -master_clock [get_clocks {ref_clk}] -multiply_by {16} -divide_by {16}
 create_generated_clock -name {ddrphy_sysclk} -source [get_ports {clk_p}] [get_pins {u_ddr3_test_h.u_ddrphy_top.ddrphy_gpll/clkout0}] -master_clock [get_clocks {ref_clk}] -multiply_by {16} -divide_by {16}
