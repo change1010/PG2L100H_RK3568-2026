@@ -30,7 +30,7 @@ RK 启动脚本使用已有的 Ubuntu 用户态目录 `/opt/rk-native/ubuntu`，
 source impl.tcl
 ```
 
-顶层为 `video_dma_hdmi_top`。实现完成后，通过 PDS 下载生成的位流。IP 目录中的 `ddr3_test` 是顶层所需的 DDR3 实现输入，保留原模块名。
+顶层为 `video_dma_hdmi_top`。实现完成后，通过 PDS 下载生成的位流。
 
 当前实现配置、资源占用和时序数据见 [当前实现报告](FPGA/TIMING_REPORT.md)。
 
