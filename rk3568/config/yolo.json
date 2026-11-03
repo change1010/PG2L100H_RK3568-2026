@@ -1,0 +1,9 @@
+{
+    "version": 1,
+    "model": "../models/model.rknn",
+    "sha256": "30b795e6b152a79c0ef022e799febca816e9a64798c1df096931e804bccc0d3e",
+    "hz": 30,
+    "confidence": 0.35,
+    "nms_iou": 0.45,
+    "contract": "decoded80_rgb565_1920x1080_letterbox640x384_fused_v1"
+}

@@ -1,143 +1,111 @@
 # PG2L100H_RK3568-2026
 
-本项目是基于紫光同创 PG2L100H FPGA 的多源视频采集与道路视觉处理工程，用于与 RK3568 ARM 平台协同完成视频显示、目标识别和道路信息分析。FPGA 负责视频输入、DDR3 帧缓存、图像预处理、道路特征提取和 PCIe 数据传输；ARM 端负责神经网络推理、结果叠加与应用交互。
-
-本仓库提交 FPGA 主工程源码。直接使用 Pango Design Suite 打开根目录的 `video_dma_hdmi.pds` 即可开始编译，工程所需 RTL、IP 配置及实现源码、引脚和时序约束均随仓库提供。
-
-当前版本已完成时序修复，并在固定 seed 1 下完成综合、布局布线、最终多角时序分析和位流生成。已约束的内部路径各项检查通过；外部接口完整时序预算、时序例外及 CDC/RDC 签核仍待完成。详见 [当前实现与时序报告](TIMING_REPORT.md)。
-
-## 主要功能
-
-### 多源视频采集与显示
-
-工程接入两路摄像头、一路 HDMI 和一路以太网视频，共四路输入。通过 DDR3 帧缓存与读写仲裁，将不同输入时钟下的视频统一到 1920×1080、60 Hz 输出时序，支持单路显示和四画面拼接。
-
-| 输入通道 | 当前处理方式 |
-| --- | --- |
-| 摄像头 1、摄像头 2 | 采集 1280×720 图像，裁剪为 960×540 RGB565 后缓存，供单画面放大或四画面显示 |
-| HDMI | 接收 1920×1080 视频，使用独立帧缓存，保留原生帧标识用于视频与检测结果关联 |
-| 以太网 | 通过 RGMII 接收符合工程自定义分包协议的 UDP 视频，校验并组帧后写入缓存 |
-
-HDMI 输入和输出芯片由 FPGA 通过 I²C 初始化。以太网通道需要匹配发送端协议，不能直接输入任意视频文件或通用网络视频流。
-
-### 本地图像处理
-
-本地 HDMI 输出支持彩色、灰度高斯滤波、灰度、二值化和 Sobel 边缘显示。图像处理模式在帧边界切换；四画面模式分别处理各子画面边界，避免相邻画面参与同一滤波窗口。
-
-这些显示模式只作用于本地 HDMI 输出。提供给 ARM 的完整视频和 YOLO 小图从公共彩色画布分支获取，不随本地灰度、二值化或边缘显示模式改变。
-
-### PCIe 视频传输与 YOLO 小图
-
-FPGA 通过 PCIe Endpoint 与 ARM 端通信，提供寄存器访问、完整视频 DMA 和小图 DMA：
-
-- **完整视频**：将 1920×1080 RGB565 画布写入 DDR3，再通过 PCIe DMA 传输到 ARM 主机内存，用于显示及后续处理。
-- **YOLO 小图**：从同一彩色画布按横纵各三分之一抽样，生成 640×360 RGB888 图像，通过独立缓存及 DMA 通道送往 ARM，减少推理输入的数据搬运量。
-- **帧关联**：保留源帧序号、源状态代号及配置版本等信息，供 ARM 区分帧和配置变化，并关联完整视频、小图与道路结果。
-- **流量管理**：通过读写仲裁、完成记录及状态计数协调传输，处理主机消费速度变化和无效帧。
-
-YOLO 模型运行在 RK3568 的 NPU 上，本 FPGA 工程负责提供图像和传输接口，不在 FPGA 内执行 YOLO 神经网络。
-
-### FPGA 道路特征提取
-
-道路检测直接接收原始 HDMI RGB888 像素流，在 FPGA 内完成白色车道标线和斑马线特征提取。默认分析图像下半部道路区域，输出多段标线几何信息、虚实线相关证据及斑马线结果。
-
-检测结果按 HDMI 原生帧序号配对，并附带源状态代号和时间戳，经跨时钟 FIFO 形成 192 字节结果包。ARM 通过 PCIe 寄存器窗口读取队首结果并确认消费，再用于绘制或上层决策。道路链路使用原始 HDMI 输入，不受本地显示处理模式影响。
-
-公共彩色画布还支持 ARM 端通过 PCIe 指令在线调整亮度增强的阈值、强度及开关，参数在帧边界生效。该处理作用于完整视频、YOLO 小图及本地显示的上游画布；道路检测仍使用原始 HDMI 像素。
-
-## 数据通路
-
-```text
-摄像头 1 ── 裁剪 ──────────┐
-摄像头 2 ── 裁剪 ──────────┤
-HDMI ── 原生帧采集 ────────┼─ DDR3 缓存与显示布局 ── 公共彩色画布
-以太网 ── UDP 校验与组帧 ──┘                          │
-                                                     ├─ 本地图像处理 ── HDMI 输出
-                                                     ├─ 完整视频 DMA ── ARM
-                                                     └─ 640×360 RGB888 小图 DMA ── ARM/NPU
-
-原始 HDMI RGB888 ── 车道标线/斑马线检测 ── 帧关联与结果队列 ── PCIe 寄存器窗口 ── ARM
-ARM ── PCIe 寄存器指令 ── 采集、传输及图像参数控制
-```
-
-## 按键操作
-
-| 按键 | FPGA 主工程行为 |
-| --- | --- |
-| KEY0 短按 | 依次切换摄像头 1、摄像头 2、HDMI、以太网、四画面 |
-| KEY0 长按 | 产生报警复位事件，不改变当前输入源 |
-| KEY4 短按 | 依次切换彩色、高斯滤波、灰度、二值化、边缘显示 |
-| KEY1～KEY3 | 消抖后的按键状态提供给 ARM；具体应用行为由 ARM 软件决定 |
-
-输入源和显示处理模式均在帧边界提交。
+基于紫光同创 PG2L100H 与 RK3568 的多路视频辅助驾驶工程。FPGA 完成视频采集、缓存、拼接、PCIe 传输及车道线/斑马线特征处理；RK3568 完成模型推理、结果叠加和 Qt 交互；PC 提供以太网视频输入。
 
 ## 工程目录
 
-```text
-PG2L100H_RK3568-2026/
-├─ video_dma_hdmi.pds    PDS 工程入口，包含器件、顶层、源文件和流程配置
-├─ README.md             项目功能与编译说明
-├─ TIMING_REPORT.md      当前实现、时序结果与验证范围
-├─ impl.tcl              固定 seed 的完整实现入口
-├─ scripts/              干净全流程构建脚本
-├─ reports/              当前时序摘要与发布输入 SHA-256 清单
-├─ rtl/
-│  ├─ top/               顶层连接、视频布局及跨模块接口
-│  ├─ control/           外设初始化、按键、寄存器控制及状态同步
-│  ├─ video/             摄像头/HDMI 采集、显示时序及图像处理
-│  ├─ ddr/               帧缓存读写、突发传输和 DDR3 仲裁
-│  ├─ ethernet/          RGMII、UDP 解析、视频组帧与 ARP 响应
-│  ├─ pcie/              PCIe DMA 收发及接口转换
-│  ├─ video_dma/         完整视频缓存、DMA 端点及发送仲裁
-│  ├─ features/          小 RGB 图采集、缓存、控制及共享传输模块
-│  └─ road/              车道标线、斑马线检测及道路结果输出
-├─ ip/                   工程引用的厂商 IP 配置、编译源码及附属约束
-└─ constraints/          引脚、时钟、时序、布局与布线约束
+| 目录 | 内容 |
+| --- | --- |
+| `video_dma_hdmi.pds`、`rtl/`、`ip/`、`constraints/` | Pango 工程、RTL、IP、引脚和时序约束 |
+| `impl.tcl`、`scripts/`、`reports/` | FPGA 实现入口、工程脚本及当前实现数据 |
+| `rk3568/` | PCIe 驱动、Qt 主程序、算法、配置及两份 RKNN 模型 |
+| `pc/ethernet_video/` | Windows 桌面采集和 UDP 视频发送程序 |
+
+代码包包含主程序构建与运行所需的工程源码、配置和模型。工具链、操作系统、厂商 SDK 和开发板配套内核构建环境由使用者准备。
+
+## 硬件与环境
+
+- FPGA：PG2L100H，FBG676，速度等级 -6；Pango Design Suite 2023.2-SP3。
+- ARM：RK3568，Linux/aarch64；驱动须与目标板内核配置和版本匹配。
+- RK 应用：GCC/G++、Make、Qt5Gui、libdrm、OpenSSL、RKNN Runtime、RGA、OpenCV core/imgproc 开发文件。
+- RK 显示：HDMI 显示器，支持逐行 1920×1080@60；FPGA 与 RK 通过 PCIe 连接。
+- PC：Windows、Python 3、NumPy、Pillow；以太网视频输入使用千兆网口。
+
+RK 启动脚本使用已有的 Ubuntu 用户态目录 `/opt/rk-native/ubuntu`，其中包含 aarch64 loader、Qt 平台插件及 Noto CJK 字体。使用其他兼容目录时设置 `RK_NATIVE_ROOT`。启动前准备该运行环境；具体路径见 `rk3568/scripts/run_dashboard_native.sh`。
+
+## FPGA 构建
+
+用 PDS 打开根目录的 `video_dma_hdmi.pds`，确认器件、板卡接线与 `constraints/` 一致。在工程目录的 Tcl 控制台运行：
+
+```tcl
+source impl.tcl
 ```
 
-仓库保留主工程编译输入、构建入口及当前报告，不包含仿真目录、历史方案、编译数据库、完整原始日志或位流。部分名称含 `road_plane` 的模块同时被小 RGB 图通道复用，属于当前编译依赖。
+顶层为 `video_dma_hdmi_top`。实现完成后，通过 PDS 下载生成的位流。IP 目录中的 `ddr3_test` 是顶层所需的 DDR3 实现输入，保留原模块名。
 
-`ip/` 中的 `.idf`、Verilog、加密 `.vp` 和 IP 附属约束是编译输入，应与主工程一起保留。IP 的仿真模型、示例工程、实例化模板及旧综合输出不属于本次提交。
+当前实现配置、资源占用和时序数据见 [当前实现报告](TIMING_REPORT.md)。
 
-## 编译方法
+## RK3568 构建
 
-| 项目 | 配置 |
-| --- | --- |
-| 开发工具 | Pango Design Suite 2023.2-SP3，build 154097 |
-| 器件系列 | Logos2 |
-| FPGA | PG2L100H |
-| 封装、速度等级 | FBG676、-6 |
-| 顶层模块 | `video_dma_hdmi_top` |
-| 工程入口 | `video_dma_hdmi.pds` |
-| 固定 seed / 布线线程 | 1 / 4 |
-| 布线模式 | normal；保留多角分析、hold 修复与 recovery 优化 |
+在 Linux/aarch64 开发环境中，从仓库根目录执行。以下变量分别指向 RKNN/RGA SDK 的目录，以及包含 OpenCV `include/` 和 `lib/` 的目录：
 
-1. 安装上述版本的 PDS，并配置可用的器件及 IP 工具授权。
-2. 将仓库完整克隆到本地可写目录，在 PDS 中打开根目录的 `video_dma_hdmi.pds`。
-3. 确认顶层和器件与上表一致。源码与 IP 已登记，无需手工添加文件、安装 Python 依赖或运行预生成脚本。
-4. 在 PDS Tcl 控制台进入仓库根目录，执行 `source impl.tcl`，运行综合、器件映射、布局布线、最终时序分析及位流生成。脚本在 PNR 出错时终止。
-5. 在工具工作目录的 `generate_bitstream/` 中获取位流，并结合对应版本的约束覆盖与板级验证结果决定下载验收。
+```sh
+make -C rk3568 main \
+    RKNN_CFLAGS="-I$RKNN_SDK/rknn/include" \
+    RKNN_LIBS="-L$RKNN_SDK/rknn/lib -lrknnrt" \
+    RGA_CFLAGS="-I$RGA_SDK/include" \
+    RGA_LIBS="-L$RGA_SDK/lib -lrga" \
+    LIGHT_CV_CFLAGS="-I$OPENCV_SDK/include" \
+    LIGHT_CV_LIBS="-L$OPENCV_SDK/lib -lopencv_imgproc -lopencv_core"
+```
 
-需要干净构建及完整耗时记录时，在 PowerShell 中运行以下命令。`-PdsShell` 使用本机工具位置，`-OutputDirectory` 必须为尚不存在的目录：
+默认 `make` 与 `make all` 同样构建主程序。产物位于 `build/rk3568-main/`，包含 `video_dma_dashboard`、FPGA 接口工具和 RGB 配对工具。变更 SDK 或编译配置时，使用新的 `MAIN_BUILD_DIR`。
+
+驱动单独构建：`KERNEL_BUILD` 指向目标内核已准备的构建目录，包含对应配置、生成头文件及 `Module.symvers`；交叉构建时另传 `CROSS_COMPILE`。
+
+```sh
+make -C rk3568 modules KDIR="$KERNEL_BUILD" ARCH=arm64
+```
+
+驱动产物为 `build/rk3568/driver/video_dma.ko`。将编译产物和仓库传到 RK 板，首次加载匹配的驱动，并检查接口：
+
+```sh
+insmod /absolute/path/video_dma.ko
+./build/rk3568-main/video_dma_fpga_probe /dev/video_dma_0002:21:00.0
+```
+
+已有兼容模块时使用现有模块，不重复加载。设备路径以目标板实际枚举结果为准。
+
+## RK3568 启动
+
+连接有效的视频输入与 RK HDMI 显示器，设置板端可见的运行库目录：
+
+```sh
+export VDMA_RUNTIME_LIBRARY_PATH="$RKNN_RUNTIME_LIB:$RGA_RUNTIME_LIB:$OPENCV_RUNTIME_LIB"
+sh rk3568/scripts/run_main_dashboard.sh \
+    --device /dev/video_dma_0002:21:00.0 \
+    --mouse /dev/input/by-id/your-mouse-event-mouse
+```
+
+三个运行库变量分别指向含 RKNN、RGA 和 OpenCV `.so` 的目录。鼠标路径按 `ls /dev/input/by-id/` 的实际结果填写；不使用鼠标时可省略该参数。脚本管理 Weston 的停止和恢复；Ctrl+C 正常退出，追加 `--seconds 15` 可限时运行。
+
+默认读取 `rk3568/config/yolo.json` 及包内模型。使用其他产物位置时，设置绝对路径变量 `VDMA_DASHBOARD_BINARY`；配置位置可通过 `VDMA_YOLO_CONFIG` 指定。KEY0 由 FPGA 切换双摄、HDMI、Ethernet 和 Quad 画面，当前识别流程使用 HDMI 来源。
+
+## PC 视频发送
+
+在 Windows 安装依赖：
 
 ```powershell
-.\scripts\build_fast_single_seed.ps1 `
-    -PdsShell "<PDS安装目录>\bin\pds_shell.exe" `
-    -OutputDirectory "$env:TEMP\video_dma_hdmi_seed1_$(Get-Date -Format yyyyMMdd_HHmmss)" `
-    -RoutingThreads 4 -RouteMode normal `
-    -OptimizeRecovery -DisableControlChains
+python -m pip install numpy Pillow
 ```
 
-脚本冻结本次输入、排除旧 IP 构建数据库，并保存 `inputs.json`、实际执行 Tcl、`build.log` 和 `status.json`；不启用增量构建。请显式保留上述选项，脚本的通用默认布线模式并非本次验收配置。
+连接 FPGA 千兆网口，将 PC 对应网卡配置为 `192.168.1.10/24`。FPGA 地址为 `192.168.1.100`、MAC 为 `02-00-00-00-00-01`、UDP 端口为 `5000`。首次在管理员 PowerShell 中配置当前会话的静态邻居：
 
-所有工程编译输入使用仓库内相对路径。`compile/`、`synthesize/`、`device_map/`、`place_route/`、`report_timing/`、`generate_bitstream/` 等目录由 PDS 编译时生成，无需从原工程复制。
+```powershell
+.\pc\ethernet_video\start_sender.ps1 -ConfigureNeighbor -CheckOnly -Bind 192.168.1.10
+```
 
-## 使用范围与验证说明
+随后在普通 PowerShell 中启动：
 
-2026 年 11 月 2 日，当前实现已使用 PDS 2023.2-SP3 完成非增量全流程构建。Slow/Fast setup 最差余量分别为 +0.494/+1.963 ns，hold 为 +0.137/+0.101 ns；两角 setup、hold、recovery、removal、最小脉宽检查的 TNS 与失败终点数均为 0。启动至最终位流写出为 1264.002927 秒，即 21 分 04.003 秒，仅代表该次测量。
+```powershell
+.\pc\ethernet_video\start_sender.ps1 -Bind 192.168.1.10
+```
 
-最终报告仍提示 89 个未约束输入端口、126 个未约束输出端口，未时钟化引脚为 0；这些是端口计数，不是路径数量。当前结论是已约束内部 STA 通过，不能据此宣称完整板级时序签核完成。本位流尚未完成实板下载及 1080p60 整链持续吞吐、无溢出和无丢帧验收。
+支持 `-Source desktop`、`synthetic`、`pattern`；`-Python` 指定解释器，`-Fps` 设置目标帧率，`-Frames` 设置发送帧数，Ctrl+C 停止。协议使用 1920×1080 RGB444，每帧 3240 个数据包。
 
-本仓库用于 FPGA 源码提交。ARM 驱动、RK3568 应用、NPU 模型及网络视频发送程序属于系统配套软件，不是 PDS 编译依赖，也不在本仓库内。仅编译和烧录 FPGA 不会自动启动 ARM 端识别及显示程序。
+## 模型与第三方代码
 
-工程约束针对当前 PG2L100H/FBG676 开发板，移植到其他器件或板卡时需要重新核对引脚、外设及时钟配置。源码依赖检查与编译通过不等于完整时序收敛或全部场景的识别精度验收，最终硬件运行应结合对应版本的时序报告与实板验证。
+- 通用模型：YOLOv8n COCO80，RK3568 INT8；输入 RGB NHWC 640×384，视频内容缩放为 640×360、上下各补12行。SHA-256：`30b795e6b152a79c0ef022e799febca816e9a64798c1df096931e804bccc0d3e`。
+- 交通灯模型：Autoware YOLOX，RK3568 INT8；输入 416×416 BGR，九组输出。SHA-256：`6486f45fa0ff4cca0385b46f9c95b482f23498c72ca54ee30bd91c25a17f14df`。来源、模型卡、标签及授权声明保留在 `rk3568/models/traffic_light_specialist/`。
+- cJSON 的源码及 MIT 许可证保留在 `rk3568/vendor/cjson/`；Pango IP 保留原始声明。各第三方组件按各自授权使用。
+- `adas_signal_test`、`adas_lane_test`、`adas_pedestrian_test` 是交互决策功能模块，属于主程序运行代码。

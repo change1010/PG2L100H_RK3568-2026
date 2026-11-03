@@ -1,4 +1,4 @@
-# 提交范围仅含正式工程入口、说明及编译输入。
+# 提交范围包含 FPGA、RK3568 和 PC 正式工程源码。
 /*
 !/.gitignore
 !/.gitattributes
@@ -11,6 +11,8 @@
 !/rtl/
 !/ip/
 !/constraints/
+!/rk3568/
+!/pc/
 
 # PDS 及 IP 重新编译产生的输出不进入仓库。
 **/compile/
@@ -27,6 +29,15 @@
 **/sim_lib/
 **/example_design/
 **/__pycache__/
+**/build/
+*.py[cod]
+*.o
+*.ko
+*.mod
+*.mod.c
+*.cmd
+Module.symvers
+modules.order
 *.log
 *.jou
 *.bak

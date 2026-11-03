@@ -1,0 +1,3 @@
+BACKGROUND
+traffic_light
+pedestrian_traffic_light
