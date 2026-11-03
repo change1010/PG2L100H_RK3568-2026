@@ -14,8 +14,8 @@ sys.path.insert(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
 )
 
-from pc.ethernet_video.pattern_source import make_diagnostic_pattern
-from pc.ethernet_video.protocol import iter_packets, pack_rgb444, parse_datagram
+from PC.ethernet_video.pattern_source import make_diagnostic_pattern
+from PC.ethernet_video.protocol import iter_packets, pack_rgb444, parse_datagram
 
 
 def enable_dpi_awareness():

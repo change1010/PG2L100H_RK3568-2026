@@ -1,7 +1,7 @@
 # Upstream Attribution
 
 The CPU preprocessing and YOLOX decoding adapter in
-`rk3568/lib/light_specialist.cpp` derives from Autoware Universe's
+`RK3568/lib/light_specialist.cpp` derives from Autoware Universe's
 `preprocess.cu` and `tensorrt_yolox.cpp`, copyright 2023 TIER IV, Inc.,
 licensed under Apache License 2.0. Local changes adapt preprocessing to CPU,
 RKNN inference and the frozen-image validation harness.

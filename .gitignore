@@ -3,16 +3,9 @@
 !/.gitignore
 !/.gitattributes
 !/README.md
-!/TIMING_REPORT.md
-!/impl.tcl
-!/scripts/
-!/reports/
-!/video_dma_hdmi.pds
-!/rtl/
-!/ip/
-!/constraints/
-!/rk3568/
-!/pc/
+!/FPGA/
+!/RK3568/
+!/PC/
 
 # PDS 及 IP 重新编译产生的输出不进入仓库。
 **/compile/
